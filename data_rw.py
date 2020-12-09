@@ -77,6 +77,7 @@ class user:                                         #main user class for all use
                      'password': self.pw_hash, 'role': self.role})
         else:
             print(val_error)
+        return status
 
     def find(key, value):                       #find whole data about user/admin using key of search and value
 

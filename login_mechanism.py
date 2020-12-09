@@ -170,7 +170,7 @@ class signup(QMainWindow):
         if password==conf:
             print("matched")
             User=user(first_Name,second_Name,email,phone,username,role,password)
-            if User.adduser():
+            if User.adduser() == True:
                 logiin=login()
                 widget.addWidget(logiin)
                 widget.setCurrentIndex(widget.currentIndex()+1)
