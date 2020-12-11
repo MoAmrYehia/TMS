@@ -17,13 +17,8 @@ tasks=Query()
 class Tasks():
     """Class that handles all functions related to tasks"""
     def __init__(self):
-        #A bunch of empty lists that will contain details about tasks
+        #An empty list that will contain the user tasks
         self.tasks=[]
-        self.scores=[]
-        self.deadlines=[]
-        self.places=[]
-        self.partners=[]
-        self.start_dates=[]
         self.status = "On-going" #Status: state of the task: finished or on-going
         
     def add_task(self, user, task, score, deadline, place="", partner=""):
@@ -39,18 +34,12 @@ class Tasks():
         self.start_date= self.now.strftime("%d/%m/%Y %H:%M:%S")
         
         self.tasks.append(self.task)
-        self.scores.append(self.score)
-        self.deadlines.append(self.deadline)
-        self.partners.append(self.partner)
-        self.start_dates.append(self.start_date)
-        self.places.append(self.place)
-        
+      
         db_tasks.insert({"username": self.user, "task":self.task, "score":self.score ,
                          "start_date": self.start_date, "deadline": self.deadline,
                          "place": self.place, "partners": self.partner, "status" : self.status})
      
-        db.update({'tasks': self.tasks, 'task_start_date':self.start_dates, 'score':self.scores, 'deadline':self.deadlines, 
-                   'partner':self.partners, 'place':self.places}, self.user== users.username )
+        db.update({'tasks': self.tasks}, self.user== users.username ) #assigning the tasks to the user's database
         
     def show_tasks(self):
         for task in self.tasks:
