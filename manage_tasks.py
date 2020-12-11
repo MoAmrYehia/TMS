@@ -1,19 +1,9 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[13]:
-
 
 """
 Project:SWE-CSE2020
 Created by: Dina Ashraf
 C-Date: 12/10/2020 
 """
-
-
-# In[346]:
-
-
 from datetime import datetime 
 #import datetime as dt
 from tinydb import TinyDB, Query 
@@ -23,10 +13,6 @@ users = Query()
 
 db_tasks=TinyDB('taskdb.json')
 tasks=Query()
-
-
-# In[399]:
-
 
 class Tasks():
     """Class that handles all functions related to tasks"""
@@ -94,9 +80,6 @@ class Tasks():
             
 
 
-# In[175]:
-
-
 #Create a user for testing
 db.insert(
                     {'first_name': 'Dina', 'last_name': 'Ashraf', 'email': 'ddd1111@gmail.com',
@@ -105,56 +88,33 @@ db.insert(
                      'password': 10, 'role': 'user'})
 
 
-# In[400]:
-
-
 #Create an instance of the list of tasks
 to_do_list =  Tasks()
 #Add tasks
 to_do_list.add_task('dinaashraf', 'Do homework', 10, '15/10/2019 01:02', place="Cairo") #task with place attribute and no partner
 to_do_list.add_task('dinaashraf', 'Write code', 10, '12/12/2020 01:01') #task with neither place nor partner attribute
+#task with partner and place attributes
+to_do_list.add_task('dinaashraf', 'Write the code of thr project', 10, '11/10/2020 02:01' , "cairo", "mohamedrazzk") 
 
-
-# In[401]:
-
-
-to_do_list.add_task('dinaashraf', 'Write the code of thr project', 10, '11/10/2020 02:01' , "cairo", "mohamedrazzk") #task with partner and place attributes
-
-
-# In[402]:
-
-
+#Testing sort_by_name
 to_do_list.sort_by_name()
 
 
-# In[403]:
-
-
 #Testing the sort_by_end_date()
-to_do_list.sort_by_end_date()
-
-
-# In[329]:
+to_do_list.sort_by_end_date()  ##currently causes a ValueError
 
 
 #Testing mark_as_finished()
 to_do_list.mark_as_finished("Do homework")
 
 
-# In[330]:
-
-
 #Testing showing tasks in progress
 to_do_list.show_tasks_in_progress()
 
 
-# In[354]:
-
 
 db_tasks.truncate() #-- clearing out the tasks database
 
-
-# In[ ]:
 
 
 
