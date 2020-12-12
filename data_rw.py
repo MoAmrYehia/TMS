@@ -67,17 +67,17 @@ class user:                                         #main user class for all use
         val_status, val_error = checker.check_validity()
         if val_status == True:
             if status == False:
-                print(error)
+                return True ,error
             else:
-                print("every thing is okay ")
+
                 db.insert(
                     {'first_name': self.first_name, 'last_name': self.last_name, 'email': self.email,
                      'phone': self.phone,
                      'username': self.username,
                      'password': self.pw_hash, 'role': self.role})
+                return True ,"Success Sign up"
         else:
-            print(val_error)
-        return status
+            return False, val_error
 
     def find(key, value):                       #find whole data about user/admin using key of search and value
 
@@ -127,11 +127,11 @@ class user:                                         #main user class for all use
 
 
 
+#user("mohamed", "razzk", "azmohaemdrazzk@gmail.com", "0100620034618", "mohamezdrazzk", "user", "pass@word").adduser()
 
 
 
 """" ex-test unite 
-
 
 user("mohamed", "razzk", "amohaemdrazzk@gmail.com", "010062034618", "mohamedrazzk", "user", "pass@word").adduser()
 result = db.search(users.username=='mohamedrazzk')
