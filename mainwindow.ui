@@ -2,41 +2,69 @@
 <ui version="4.0">
  <class>forget_pass</class>
  <widget class="QMainWindow" name="forget_pass">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1145</width>
+    <height>772</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1000</width>
+    <height>730</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>Ubuntu Condensed</family>
+    <pointsize>14</pointsize>
+    <weight>75</weight>
+    <bold>true</bold>
+   </font>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(238, 238, 236)</string>
+   <string notr="true">background-color: rgb(85, 87, 83)</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="admin">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>460</y>
+      <x>410</x>
+      <y>610</y>
       <width>171</width>
       <height>51</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu Condensed</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
-     <string>admin</string>
+     <string>ADMIN</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>40</y>
-      <width>71</width>
-      <height>41</height>
+      <x>280</x>
+      <y>20</y>
+      <width>401</width>
+      <height>251</height>
      </rect>
     </property>
     <property name="font">
@@ -51,20 +79,32 @@
      <enum>Qt::RightToLeft</enum>
     </property>
     <property name="text">
-     <string>Log in</string>
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../../Desktop/8opzDSzOduu2GNGuDMup09gwECPo1K29CAe7YtW5.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignHCenter|Qt::AlignTop</set>
     </property>
    </widget>
    <widget class="QLineEdit" name="email">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>130</y>
-      <width>171</width>
+      <x>370</x>
+      <y>330</y>
+      <width>231</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
     <property name="text">
      <string/>
@@ -73,9 +113,9 @@
    <widget class="QLineEdit" name="pasS">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>180</y>
-      <width>171</width>
+      <x>370</x>
+      <y>380</y>
+      <width>231</width>
       <height>31</height>
      </rect>
     </property>
@@ -89,8 +129,8 @@
    <widget class="QPushButton" name="forGet">
     <property name="geometry">
      <rect>
-      <x>409</x>
-      <y>240</y>
+      <x>470</x>
+      <y>680</y>
       <width>111</width>
       <height>21</height>
      </rect>
@@ -102,8 +142,8 @@
    <widget class="QRadioButton" name="stay_in">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>280</y>
+      <x>370</x>
+      <y>430</y>
       <width>151</width>
       <height>31</height>
      </rect>
@@ -115,27 +155,43 @@
    <widget class="QPushButton" name="loginbutton">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>340</y>
+      <x>410</x>
+      <y>490</y>
       <width>171</width>
       <height>41</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu Condensed</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
-     <string>Log in</string>
+     <string>SIGN IN</string>
     </property>
    </widget>
    <widget class="QPushButton" name="signup">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>400</y>
+      <x>410</x>
+      <y>550</y>
       <width>171</width>
       <height>41</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu Mono</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
-     <string>Sign up</string>
+     <string>SIGN UP</string>
     </property>
    </widget>
   </widget>
@@ -144,7 +200,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1145</width>
      <height>21</height>
     </rect>
    </property>
