@@ -97,21 +97,23 @@ class Manage():
 
 
 
-
-
+#Instance of Mange()
 manage_dina = Manage("dinaashraf")
 
+#Testing
 #manage_dina.sort_by_end_date()
 #manage_dina.show_weekly_report()
 #manage_dina.sort_by_name()
 #manage_dina.show_progress()
 #manage_dina.push_notifications()
 
+
+#Continous ThreadingL the problem with it is that it takes too long to run
+th = continuous_threading.ContinuousThread(target=manage_dina.push_notifications())
+th.start()
+
 #Running a thread
 #th = threading.Thread(target = manage_dina.push_notifications(), daemon=True).start()
-    #Continous ThreadingL the problem with it is that it takes too long to run
-#th = continuous_threading.ContinuousThread(target=manage_dina.push_notifications())
-#th.start()
 #print(datetime.datetime.now().strftime("%d/%m/%Y %H:%M"))
 
 
