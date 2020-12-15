@@ -14,16 +14,16 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(238, 238, 236)</string>
+   <string notr="true">background-color: rgb(85, 87, 83)</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>40</y>
-      <width>71</width>
-      <height>41</height>
+      <x>310</x>
+      <y>10</y>
+      <width>131</width>
+      <height>91</height>
      </rect>
     </property>
     <property name="font">
@@ -38,7 +38,13 @@
      <enum>Qt::RightToLeft</enum>
     </property>
     <property name="text">
-     <string>Admin</string>
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../../Desktop/admin-icon-trendy-design-style-isolated-white-background-vector-simple-modern-flat-symbol-web-site-mobile-logo-app-135742404.jpg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -54,7 +60,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Email address</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLineEdit" name="password">
@@ -67,7 +73,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Password</string>
+     <string/>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -81,6 +87,14 @@
       <width>171</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu Condensed</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>Log in </string>
@@ -102,3 +116,4 @@
  <resources/>
  <connections/>
 </ui>
+
