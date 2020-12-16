@@ -16,9 +16,8 @@ class Task:
         self.user = user
         self.task = task
         self.score = score
-        self.end_date = end_date  # Please define the deadline in the following format: %d/%m/%Y %H:%M:%S
+        self.end_date = end_date  # Please define the deadline in the following format: %d/%m/%Y %H:%M
         self.start_date = start_date
-        #self.end_date =  datetime.datetime.strptime(self.end_date, '%d/%m/%Y %H:%M')
         self.place = place
         self.partner = partner
         
@@ -35,9 +34,9 @@ class Task:
         db_tasks.update({"status" : "Finished" } , tasks.task == self.task)
         
 
-task1 = Task("dinaashraf", "Attend Lecture" , 10, "15/12/2020 07:02:06",  "16/12/2020 14:46:20")
-task2 = Task("dinaashraf", "Write Code" , 15, "15/12/2020 07:02:04",  "16/12/2020 14:36:05")
-task3 = Task("dinaashraf", "Write PHP" , 15, "15/12/2019 07:02:04",  "16/12/2020 14:46:20")
+task1 = Task("dinaashraf", "Attend Lecture" , 10, "15/12/2020 07:02:06",  "16/12/2020 15:04")
+task2 = Task("dinaashraf", "Write Code" , 15, "15/12/2020 07:02:04",  "16/12/2020 14:59")
+task3 = Task("dinaashraf", "Write PHP" , 15, "15/12/2019 07:02:04",  "16/12/2020 15:04")
 task3.mark_as_finished()
 #db_tasks.truncate()
 
