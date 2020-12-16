@@ -10,8 +10,6 @@ import continuous_threading
 import time
 from tinydb import TinyDB, Query 
 from operator import itemgetter
-db = TinyDB('usrdb.json')                           
-users = Query()  
 
 db_tasks=TinyDB('taskdb.json')
 tasks=Query()
@@ -57,7 +55,7 @@ class Manage():
           
     def show_weekly_report(self):
         """Produces a weekly report every Friday that shows (un)/finished tasks."""
-        if datetime.date.today().weekday() == 1: #5 means Friday
+        if datetime.date.today().weekday() == 5: #5 means Friday
             self.total_score = 0
             self.finished_tasks = db_tasks.search((tasks.status == "Finished") & (tasks.username == self.username))
             for i in range (0,len(self.finished_tasks)):
@@ -75,45 +73,42 @@ class Manage():
 
 
     def push_notifications(self):
-        """Pushes a notification if the time difference between a task end_date and current
-        time is between 0 and 10 minutes."""
+        """Pushes a notification at the task's end date."""
+        self.count = self.x #The number of tasks for each user which will determine the end conidition of the while loop
         #Making sure that all end_dates are in datetime format not str
         for i in range (0,self.x):
             try:
                 self.unsorted_tasks[i]['end_date'] = datetime.datetime.strptime(self.unsorted_tasks[i]['end_date'], '%d/%m/%Y %H:%M:%S')  
             except: 
                 pass
-        #Measuring the time now and calculating the difference between it and end_date of the task
-        for i in range (0,self.x): #Iterating over the tasks where x is the number of tasks
-            self.now = datetime.datetime.now()
-       #     print(type(self.now))
-       #     print(type(self.unsorted_tasks[i]["end_date"]))
-            self.diff = (self.unsorted_tasks[i]["end_date"] - self.now).total_seconds() #Time difference
-            if int(self.diff) in range(0,600):
-                print("Deadline is approaching for this task >> ", self.unsorted_tasks[i]["task"])
+        # Measuring the time now and calculating the difference between it and the end_date of the task
+        while self.count:
+            for i in range (0,self.x): #Iterating over the tasks where x is the number of tasks
+                 self.now = datetime.datetime.now().replace(microsecond=0)
+           #     print(type(self.now))
+           #     print(type(self.unsorted_tasks[i]["end_date"]))
+                 self.diff = (self.unsorted_tasks[i]["end_date"] - self.now).total_seconds() #Time difference
+                 
+                 if int(self.diff) == 0 and self.unsorted_tasks[i]["status"] == "On-going":
+                    print("Task deadline reminder for >> ", self.unsorted_tasks[i]["task"])
+                    self.count = self.count - 1
+                 else:
+                     print(self.diff)
+            time.sleep(10) # We check for new tasks every 10 seconds
 
-                
+ 
 
 
 
-
-#Instance of Mange()
 manage_dina = Manage("dinaashraf")
 
-#Testing
 #manage_dina.sort_by_end_date()
 #manage_dina.show_weekly_report()
 #manage_dina.sort_by_name()
 #manage_dina.show_progress()
 #manage_dina.push_notifications()
 
-
-#Continous ThreadingL the problem with it is that it takes too long to run
-th = continuous_threading.ContinuousThread(target=manage_dina.push_notifications())
-th.start()
-
 #Running a thread
-#th = threading.Thread(target = manage_dina.push_notifications(), daemon=True).start()
-#print(datetime.datetime.now().strftime("%d/%m/%Y %H:%M"))
+th = threading.Thread(target = manage_dina.push_notifications(), ).start()
 
 
