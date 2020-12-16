@@ -34,8 +34,8 @@ class Task:
         db_tasks.update({"status" : "Finished" } , tasks.task == self.task)
         
 
-task1 = Task("dinaashraf", "Attend Lecture" , 10, "15/12/2020 07:02:06",  "16/12/2020 15:04")
-task2 = Task("dinaashraf", "Write Code" , 15, "15/12/2020 07:02:04",  "16/12/2020 14:59")
+task1 = Task("dinaashraf", "Attend Lecture" , 10, "15/12/2020 07:02:06",  "12/12/2020 15:04")
+task2 = Task("dinaashraf", "Write Code" , 15, "15/12/2020 07:02:04",  "13/12/2020 14:59")
 task3 = Task("dinaashraf", "Write PHP" , 15, "15/12/2019 07:02:04",  "16/12/2020 15:04")
 task3.mark_as_finished()
 #db_tasks.truncate()
