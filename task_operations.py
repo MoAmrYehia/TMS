@@ -11,8 +11,10 @@ import time
 from tinydb import TinyDB, Query 
 from operator import itemgetter
 
-db_tasks=TinyDB('taskdb.json')
-tasks=Query()
+db_tasks = TinyDB('taskdb.json')
+tasks= Query()
+db_scoring = TinyDB('scoringdb.json')
+scores = Query()
 
 
 class Manage():
@@ -21,11 +23,16 @@ class Manage():
         self.username = username
         self.unsorted_tasks = db_tasks.search(tasks.username == self.username)
         self.x = len(self.unsorted_tasks) #Total number of tasks
+        
         self.on_going_tasks = db_tasks.search((tasks['status'] == "On-going") & (tasks.username == self.username))
         self.number_on_going = len(self.on_going_tasks)
+        
         self.finished_tasks = db_tasks.search((tasks.status == "Finished") & (tasks.username == self.username))
-
-          
+        self.number_finished = len(self.finished_tasks)
+        
+        #Scoring
+        db_scoring.insert({"username": self.username , "level": None , "Score": None })
+        
     def sort_by_name(self):
         """Sorts the user's tasks alphabetically."""
         self.unsorted_tasks.sort(key=lambda x: x['task'])
@@ -61,6 +68,9 @@ class Manage():
         self.today = datetime.datetime.today().replace(second = 0, minute = 0, hour =0, microsecond =0 ) #Return today's date
         self.finished_before_deadline = []
         self.not_finished_before_deadline = []
+        
+        #Getting all days of the current week to see which tasks have been finished on this week
+        
         self.day_1 = self.today - datetime.timedelta(days = 1)
         self.day_2 = self.today - datetime.timedelta(days = 2)
         self.day_3 = self.today - datetime.timedelta(days = 3)
@@ -68,15 +78,16 @@ class Manage():
         self.day_5 = self.today - datetime.timedelta(days = 5)
         self.day_6 = self.today - datetime.timedelta(days = 6)
 
-        if self.today.weekday() == 2: #5 means Friday
-            #The days of the current week
+        if self.today.weekday() == 5: #5 means Friday
             for i in range (0,self.x):
-                #Making sure all start & end_dates are datetime objects not str
+                
+                #Making sure all end_dates are datetime objects not str
                 try:
                     self.unsorted_tasks[i]['end_date'] = datetime.datetime.strptime(self.unsorted_tasks[i]['end_date'], '%d/%m/%Y %H:%M')
                     (self.unsorted_tasks[i]["end_date"]) =  (self.unsorted_tasks[i]["end_date"]).replace(second = 0, minute = 0, hour =0, microsecond =0 )
                 except: 
                     pass
+                
                 #Finding out which tasks were finished this week and which weren't
                 if (self.unsorted_tasks[i]['end_date'])== self.today or self.day_1 or self.day_2 or self.day_2 or self.day_3 or self.day_4 or self.day_5  or self.day_6:
                  #       print('Hello')
@@ -124,21 +135,48 @@ class Manage():
 
             time.sleep(10) # We check for new tasks every 10 seconds
             
-    
+    def set_level(self):
+        """Determines silver/gold/bronze""" 
+        #Hi, Razzk, we need to have a flag that indicates that the user has used our App for a month or 2 or 3
+        #Here I assume no flags and I set the level based only on the user's scores
+        self.total_score = 0
+        
+        #Score Calculation
+        for i in range(self.x):
+            if self.unsorted_tasks[i]['status'] == "Finished":
+                self.total_score = self.unsorted_tasks[i]["score"] + self.total_score
+                
+        if (self.number_finished/self.x) >= 0.5 and (self.number_finished/self.x) < 0.7 and (self.number_on_going!=0): #Bronze Level
+            db_scoring.update({"level": "Bronze", "Score":self.total_score }, scores.username == self.username)
+            print('Your level is Bronze')
 
-
- 
+        if (self.number_finished/self.x) >= 0.7 and (self.number_finished/self.x) < 0.8 and (self.number_on_going!=0) : #Silver Level
+            db_scoring.update({"level": "Silver", "Score":self.total_score }, scores.username == self.username)
+            print('Your level is Silver')
+            
+        if (self.number_finished/self.x) >= 0.8 and (self.number_on_going!=0): #Gold Level         
+            db_scoring.update({"level": "Gold", "Score":self.total_score }, scores.username == self.username)
+            print('Your level is Gold')
+                
+        elif self.number_on_going == 0 and self.number_finished: #Gold Level
+            db_scoring.update({"level": "Gold", "Score":self.total_score }, scores.username == self.username)
+            print('Your level is Gold')
+            
 
 
 
 manage_dina = Manage("dinaashraf")
+manage_ashraf = Manage("ashraf")
+
+manage_dina.set_level()
+manage_ashraf.set_level()
 
 #manage_dina.sort_by_end_date()
-manage_dina.show_weekly_report()
+#manage_dina.show_weekly_report()
 #manage_dina.sort_by_name()
 #manage_dina.show_progress()
 #manage_dina.push_notifications()
-
 #Running a thread
 #th = threading.Thread(target = manage_dina.push_notifications(), ).start()
 
+#db_scoring.truncate()
