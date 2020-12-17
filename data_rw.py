@@ -7,22 +7,23 @@ Last-M : Razzk
 M-date 12/7/2020 10:50pm
 """
 
-from tinydb import TinyDB, Query                    #tiny database inheritace
-import re                                           #regix lib for mail validation
-from sechashuli import make_pw_hash,check_pw_hash  #hashing class to convert plain password to sha-256 hasing and compare
+from tinydb import TinyDB, Query  # tiny database inheritace
+import re  # regix lib for mail validation
+from sechashuli import make_pw_hash, \
+    check_pw_hash  # hashing class to convert plain password to sha-256 hasing and compare
 
-db = TinyDB('usrdb.json')                            #defind database location as json file
-users = Query()                                      #implementing data as user query
+db = TinyDB('usrdb.json')  # defind database location as json file
+users = Query()  # implementing data as user query
 
 
-class validation:                                   #validation class to check existence and data validity
+class validation:  # validation class to check existence and data validity
 
     def __init__(self, email, username, phone):
         self.email = email
         self.username = username
         self.phone = phone
 
-    def check_existence(self):                         #check existence of mail, username and phone data
+    def check_existence(self):  # check existence of mail, username and phone data
         status = False
         error = ""
         if db.search(users.email == self.email):  # checking mail
@@ -50,7 +51,7 @@ class validation:                                   #validation class to check e
         return val_status, val_error
 
 
-class user:                                         #main user class for all user data assiging as user or admin
+class user:  # main user class for all user data assiging as user or admin
 
     def __init__(self, first_name, last_name, email, phone, username, role, password):
         self.first_name = first_name
@@ -61,13 +62,13 @@ class user:                                         #main user class for all use
         self.role = role
         self.pw_hash = make_pw_hash(password)
 
-    def adduser(self):                                                    #add user and admin in database
+    def adduser(self):  # add user and admin in database
         checker = validation(self.email, self.username, self.phone)
         status, error = checker.check_existence()
         val_status, val_error = checker.check_validity()
         if val_status == True:
             if status == False:
-                return True ,error
+                return True, error
             else:
 
                 db.insert(
@@ -75,11 +76,11 @@ class user:                                         #main user class for all use
                      'phone': self.phone,
                      'username': self.username,
                      'password': self.pw_hash, 'role': self.role})
-                return True ,"Success Sign up"
+                return True, "Success Sign up"
         else:
             return False, val_error
 
-    def find(key, value):                       #find whole data about user/admin using key of search and value
+    def find(key, value):  # find whole data about user/admin using key of search and value
 
         result = ""
         if key == "username" or key == "phone" or key == "email" or key == "role":
@@ -97,7 +98,7 @@ class user:                                         #main user class for all use
             result = "there is no data "
         return result
 
-    def modify(key, pramter, value):            #modifiy user/admin data using key, paramter and value
+    def modify(key, pramter, value):  # modifiy user/admin data using key, paramter and value
         if pramter != "password":
             db.update({pramter: value}, users.username == key)
 
@@ -105,7 +106,7 @@ class user:                                         #main user class for all use
             print('You gonna to change user password ')
             old_pass = input('Please enter old password\n')
             data = db.get(Query()['username'] == key)
-            if check_pw_hash(old_pass,data.get('password')):                #checking password hash to make verifiy changes
+            if check_pw_hash(old_pass, data.get('password')):  # checking password hash to make verifiy changes
                 db.update({pramter: value}, users.username == key)
                 print("password changed")
             else:
@@ -117,18 +118,14 @@ class user:                                         #main user class for all use
         data = db.get(Query()['username'] == key)
         old_pass = input("Please enter password to delete account\n")
 
-        if check_pw_hash(old_pass,data.get('password')):                     #checking password hash to make verifiy changes
+        if check_pw_hash(old_pass, data.get('password')):  # checking password hash to make verifiy changes
             db.remove(users.username == key)
             print("account Deleted")
         else:
             print("you Entered wrong password")
 
 
-
-
-
-#user("mohamed", "razzk", "azmohaemdrazzk@gmail.com", "0100620034618", "mohamezdrazzk", "user", "pass@word").adduser()
-
+# user("mohamed", "razzk", "azmohaemdrazzk@gmail.com", "0100620034618", "mohamezdrazzk", "user", "pass@word").adduser()
 
 
 """" ex-test unite 
@@ -147,4 +144,3 @@ print(type(item))
 print(user.find("phone","010062034618"))
 
 """
-

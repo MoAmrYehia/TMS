@@ -58,7 +58,7 @@ class user_auth:  # user login authintication
         global ccdenum
         ccdenum = randint(100000, 999999)
         mail_code(mail, ccdenum)
-        return "Code had been Sent"
+        return True, "Code had been Sent"
 
 
     def code_validaion(self,code):
