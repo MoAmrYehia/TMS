@@ -11,7 +11,7 @@ from tinydb import TinyDB, Query  # tiny database inheritace
 import re  # regix lib for mail validation
 from sechashuli import make_pw_hash, \
     check_pw_hash  # hashing class to convert plain password to sha-256 hasing and compare
-
+import datetime
 db = TinyDB('usrdb.json')  # defind database location as json file
 users = Query()  # implementing data as user query
 
@@ -53,14 +53,18 @@ class validation:  # validation class to check existence and data validity
 
 class user:  # main user class for all user data assiging as user or admin
 
-    def __init__(self, first_name, last_name, email, phone, username, role, password):
+    def __init__(self, first_name, last_name, email, phone, username, role, password,level="normal",score=0):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.phone = phone
         self.username = username
         self.role = role
+        self.level = level
+        self.score = score
         self.pw_hash = make_pw_hash(password)
+        self.rdate=str(datetime.datetime.today().replace(second=0, microsecond=0))
+
 
     def adduser(self):  # add user and admin in database
         checker = validation(self.email, self.username, self.phone)
@@ -74,7 +78,8 @@ class user:  # main user class for all user data assiging as user or admin
                 db.insert(
                     {'first_name': self.first_name, 'last_name': self.last_name, 'email': self.email,
                      'phone': self.phone,
-                     'username': self.username,
+                     'username': self.username, 'level': self.level,
+                     'score': self.score,'rdate': self.rdate,
                      'password': self.pw_hash, 'role': self.role})
                 return True, "Success Sign up"
         else:
@@ -125,7 +130,26 @@ class user:  # main user class for all user data assiging as user or admin
             print("you Entered wrong password")
 
 
-# user("mohamed", "razzk", "azmohaemdrazzk@gmail.com", "0100620034618", "mohamezdrazzk", "user", "pass@word").adduser()
+class Hall_of_Fame():
+    """Class that determines the top 10 users."""
+
+    def __init__(self):
+        self.score = 0
+        self.gold_users = db.search(users.level == "Gold")  # A top 10 user must be Gold
+
+    def fame(self):
+
+        self.gold_users.sort(key=lambda x: x['score'], reverse=True)  # Sorting the users based on scores
+        self.first_ten = list(self.gold_users)[:10]  # Returning 10 users with highest scores
+        print(self.first_ten)
+
+        if self.first_ten:
+            #print("The top users are: ")
+            for i in range(len(self.first_ten)):
+                return self.first_ten[i]["username"], self.first_ten[i]["score"]
+
+
+user("mohamed", "razzk", "azmohaemdrazzk@gmail.com", "0100620034618", "mohamezdrazzk", "user", "pass@word").adduser()
 
 
 """" ex-test unite 
@@ -144,3 +168,5 @@ print(type(item))
 print(user.find("phone","010062034618"))
 
 """
+#print( Hall_of_Fame().fame())
+
