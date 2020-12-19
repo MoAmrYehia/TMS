@@ -6,18 +6,19 @@ tasks=Query()
 class Task:
     """Class that handles all information related to tasks."""
 
-    def __init__(self, user, task, score, start_date, end_date, place = None, partner= None):
+    def __init__(self, username, task, score, start_date, end_date, status = "On-going", description = None, place = None, partner= None):
         
-        self.status = "On-going"  # Status: state of the task: finished or on-going
-        self.user = user
+        self.status = status  # Status: state of the task: Finished or On-going
+        self.username = username
         self.task = task
         self.score = score
         self.end_date = end_date  # Please define the deadline in the following format: %d/%m/%Y %H:%M
         self.start_date = start_date
         self.place = place
         self.partner = partner
+        self.description = description
         
-        db_tasks.insert({"username": self.user, "task":self.task, "score":self.score ,
+        db_tasks.insert({"username": self.username, "task":self.task, "description": self.description, "score":self.score ,
                          "start_date": self.start_date, "end_date": self.end_date,
                          "place": self.place, "partners": self.partner, "status" : self.status})
         
@@ -37,10 +38,11 @@ class Task:
         db_tasks.update({"status" : "Finished" } , tasks.task == self.task)
         
 
-#task1 = Task("dinaashraf", "Attend Lecture" , 10, "15/12/2020 07:02:06",  "12/12/2020 15:04")
-#task2 = Task("dinaashraf", "Write Code" , 15, "15/12/2020 07:02:04",  "13/12/2020 14:59")
-#task3 = Task("dinaashraf", "Write PHP" , 15, "15/12/2019 07:02:04",  "16/12/2020 15:04")
-#task4 = Task("dinaashraf", "More freakin Code" , 15, "15/12/2019 07:02:04",  "16/12/2020 15:04")
+# = Task("mohamezdrazzk", "Attend Lecture" , 10, "15/12/2020 07:02:06",  "12/12/2020 15:04", description = "bla bla")
+#task1 = Task("mohamezdrazzk", "Attend Lecture" , 10, "15/12/2020 07:02:06",  "12/12/2020 15:04")
+#task2 = Task("mohamezdrazzk", "Write Code" , 10, "15/12/2020 07:02:04",  "13/12/2020 14:59")
+#task3 = Task("mohamezdrazzk", "Write PHP" , 10, "15/12/2019 07:02:04",  "16/12/2020 15:04")
+#task4 = Task("mohamezdrazzk", "More freakin Code" , 10, "15/12/2019 07:02:04",  "16/12/2020 15:04")
 
 #task3.mark_as_finished()
 #task4.mark_as_finished()
