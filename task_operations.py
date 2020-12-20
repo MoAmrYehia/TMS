@@ -176,13 +176,10 @@ class Manage():
             if (self.number_finished / self.x) >= 0.5 and (self.number_finished / self.x) < 0.7 and (
                     self.month_diff >= 1):
                 db.update({"level": "Bronze"}, users.username == self.username)
-                print('Your level is Bronze')
-                print(self.number_finished, self.x)
 
             if (self.number_finished / self.x) >= 0.7 and (self.number_finished / self.x) < 0.8 and (
                     self.month_diff >= 2):  # Silver Level
                 db.update({"level": "Silver"}, users.username == self.username)
-                print('Your level is Silver')
 
             if (self.number_finished / self.x) >= 0.8 and (self.month_diff >= 3):  # Gold Level
                 db.update({"level": "Gold"}, users.username == self.username)
