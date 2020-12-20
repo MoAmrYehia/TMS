@@ -8,7 +8,7 @@ import datetime
 import threading 
 import time
 from tinydb import TinyDB, Query 
-#import notify2
+import platform
 
 db_tasks = TinyDB('taskdb.json')
 tasks= Query()
@@ -130,28 +130,42 @@ class Manage():
 
     def push_notifications(self):
         """Pushes a notification at the task's end date."""
-        self.count = self.number_on_going 
+        self.task_list = [] #List of tasks ordered
         
         #Making sure that all end_dates are in datetime format not str
-        for i in range (0,self.x):
+        for i in range (0,self.number_on_going): #number_on_going is the no. of on-going tasks
             try:
-                self.on_going_tasks[i]['end_date'] = datetime.datetime.strptime(self.on_going_tasks[i]['end_date'], '%d/%m/%Y %H:%M')  
+                self.on_going_tasks[i]['end_date'] = datetime.datetime.strptime(self.on_going_tasks[i]['end_date'], '%d/%m/%Y %H:%M') 
             except: 
                 pass
+            self.task_list.append( self.on_going_tasks[i]['end_date']) #Adding the tasks to the list
             
         # Measuring the time now and calculating the difference between it and the end_date of the task
-        while self.count:
-            for i in range (0,self.number_on_going): #Iterating over the on-going tasks
-                 self.now = datetime.datetime.now().replace(microsecond=0).replace(second = 0)
-                 self.diff = (self.on_going_tasks[i]["end_date"] - self.now).total_seconds() #Time difference
-                 
-                 if int(self.diff) <= 10:
-                    return self.on_going_tasks[i]["task"]
-                    print("Task deadline reminder for >> ", self.on_going_tasks[i]["task"]) 
-                    self.count = self.count - 1 
+        while self.task_list:
+            self.now = datetime.datetime.now().replace(microsecond=0).replace(second = 0)
+            self.diff = (self.task_list[0] - self.now).total_seconds() #Time difference
+            
+            if int(self.diff) <= 10: #Print the notification is the time difference is 10 seconds or less
+                #print(self.task_list[0])
+                return self.task_list[0]
+                self.task_list.remove(self.task_list[0])
+                #Windows & linux Notification Center 
+                if platform.system() == "Windows":
+                    from win10toast import ToastNotifier
+                    toast = ToastNotifier()
+                    toast.show_toast("SWE CSE Task Manager", self.task_list[0], duration=20) 
+                else:
+                    import notify2
+                    notify2.init('Task Manager')
+                    n = notify2.Notification("SWE CSE Task Manager:",
+                                            self.task_list[0],
+                                             "notification-message-im"  
+                                             )
+                n.show()
                  #Sleeping until the next task
-                 self.now = datetime.datetime.now().replace(microsecond=0).replace(second = 0)
-                 time.sleep(10)
+            self.now = datetime.datetime.now().replace(microsecond=0).replace(second = 0)
+            self.diff = (self.task_list[0] - self.now).total_seconds() #Time difference
+            time.sleep(self.diff)
             
     def set_level(self):
         """Determines silver/gold/bronze"""
@@ -162,7 +176,6 @@ class Manage():
         self.creation_date =  datetime.datetime.strptime(self.date, '%Y-%m-%d  %H:%M:%S')
         self.creation_date = self.creation_date.replace(microsecond = 0)
         self.month_diff = (self.now.year - self.creation_date.year)  * 12 + (self.now.month - self.creation_date.month)
-        print(self.month_diff)
 
         # Score Calculation
         for i in range(self.x):
@@ -172,44 +185,32 @@ class Manage():
         try:
             if (self.number_finished / self.x) >= 0.5 and (self.number_finished / self.x) < 0.7  and ( self.month_diff >= 1):
                 db.update({"level": "Bronze"}, users.username == self.username)
-                print('Your level is Bronze')
-                print(self.number_finished, self.x)
+
 
             if (self.number_finished / self.x) >= 0.7 and (self.number_finished / self.x) < 0.8  and ( self.month_diff >= 2):  # Silver Level
                 db.update({"level": "Silver"}, users.username == self.username)
-                print('Your level is Silver')
+
 
             if (self.number_finished / self.x) >= 0.8  and ( self.month_diff >= 3): # Gold Level
                 db.update({"level": "Gold"}, users.username == self.username)
-                print('Your level is Gold')
+      
             
             if self.number_on_going == 0 and self.number_finished and ( self.month_diff >= 3):  # Gold Level
                 db.update({"level": "Gold"}, users.username == self.username)
-                print('Your level is Gold')
+
                 
         except ZeroDivisionError: #Happens if user has zero tasks
             pass
                 
    
 
-manage_dina = Manage("dinaashraf")
-#manage_ashraf = Manage("ashraf")
 
 manage_razzk = Manage("mohamezdrazzk")
 #print(manage_razzk.show_ongoing_tasks())
 #print(manage_razzk.sort_by_end_date())
-#manage_dina.set_level()
-#manage_ashraf.set_level()
 
-#manage_dina.sort_by_end_date()
-#print(manage_razzk.show_weekly_report())
-#manage_dina.sort_by_name()
-#manage_dina.show_progress()
-#manage_dina.push_notifications()
 
 #Running a thread
 
-#th = threading.Thread(target = manage_razzk.push_notifications()).start()
+th = threading.Thread(target = manage_razzk.push_notifications()).start()
 
-
-#db_scoring.truncate()
