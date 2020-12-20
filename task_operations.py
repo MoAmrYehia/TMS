@@ -221,4 +221,4 @@ class Manage():
 
 # db_scoring.truncate()
 
-print(Manage("mohamezdrazzk").search('m'))
+#print(Manage("mohamezdrazzk").search('m'))
