@@ -6,6 +6,7 @@ def push_notification(message):
         from win10toast import ToastNotifier
         toast = ToastNotifier()
         toast.show_toast("SWE CSE Task Manager", message, duration=20) #ico can be added later
+
     else:
         import notify2
         notify2.init('Task Manager')
