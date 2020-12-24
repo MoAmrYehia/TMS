@@ -1,5 +1,6 @@
 
 # CSE 321: Software Engineering
+This is a University project, where students could apply software engineering concepts on a real life project. 
 
 ## Task Monitoring System
 Today, Most of the available task monitoring and management systems only offer limited features to the user. Also, they don't support multiple features for both admins and users; they do not offer smart scheduling or schedule optimizing, or even user behavior analysis which assists the user in planning their daily, weekly, or monthly tasks.
