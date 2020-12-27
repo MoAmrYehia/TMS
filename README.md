@@ -7,6 +7,7 @@
         <img src="https://img.shields.io/github/contributors/MoAmrYehia/Software_League_app" /></a>
     <a href="https://github.com/MoAmrYehia/Software_League_app/pulse" alt="Activity">
         <img src="https://img.shields.io/github/commit-activity/w/MoAmrYehia/Software_League_app" /></a>
+    
 </p>
 
 This is a University project, where students could apply software engineering concepts on a real life project. At the end of this project, my team would be able to submit UML diagrams, system requirements and user interface design.
