@@ -3,8 +3,8 @@
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/MoAmrYehia/Software_League_app/main/TMS_Logo.png"
-        width="800" 
-        height="350">
+        width="500" 
+        height="150">
 </p>
 
 </p>
