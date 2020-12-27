@@ -1,5 +1,12 @@
 
 # CSE 321: Software Engineering
+
+</p>
+<p align="center">
+    <a href="https://github.com/MoAmrYehia/Software_League_app/graphs/contributors" alt="Contributors">
+        <img src="https://img.shields.io/github/contributors/MoAmrYehia/Software_League_app" /></a>
+</p>
+
 This is a University project, where students could apply software engineering concepts on a real life project. At the end of this project, my team would be able to submit UML diagrams, system requirements and user interface design.
 
 
