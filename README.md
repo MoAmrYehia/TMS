@@ -2,9 +2,7 @@
 # CSE 321: Software Engineering
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/MoAmrYehia/Software_League_app/main/TMS_Logo.png"
-        width="500" 
-        height="150">
+    <img src="https://raw.githubusercontent.com/MoAmrYehia/Software_League_app/main/TMS_Logo.png">
 </p>
 
 </p>
