@@ -30,12 +30,15 @@ class Manage():
         self.username = username
 
     def show_tasks(self):
-        """Prints the list of tasks to the user."""
+        """Shows the user's tasks."""
         self.unsorted_tasks = db_tasks.search(tasks.username == self.username)
         self.x = len(self.unsorted_tasks)  # Total number of tasks
         self.task_list = []
         for i in range(self.x):
-            self.task_list.append(self.unsorted_tasks[i]['task'])
+            self.task_list.append({'task name' : self.unsorted_tasks[i]['task'], 'score': self.unsorted_tasks[i]['score'],
+                                   'end_date': self.unsorted_tasks[i]['task'], 'partners': self.unsorted_tasks[i]['partners'],
+                                   'place': self.unsorted_tasks[i]['place']
+                                  })
         return self.task_list
 
     def sort_by_name(self):
