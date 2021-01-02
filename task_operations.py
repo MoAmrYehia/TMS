@@ -66,7 +66,10 @@ class Manage():
         """Sorts the user's tasks based on end-date"""
         unsorted_tasks = db_tasks.search(tasks.username == self.username)
         x = len(unsorted_tasks)  # Total number of tasks
-        unsorted_tasks.sort(key=lambda x: datetime.datetime.strptime(x['end_date'], '%d/%m/%Y %H:%M'))
+        try:
+            unsorted_tasks.sort(key=lambda x: datetime.datetime.strptime(x['end_date'], '%d/%m/%Y %H:%M'))
+        except:
+            pass
 
         task_list = []
         for i in range(x):
