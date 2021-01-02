@@ -31,38 +31,42 @@ class Manage():
 
     def show_tasks(self):
         """Shows the user's tasks."""
-        self.unsorted_tasks = db_tasks.search(tasks.username == self.username)
-        self.x = len(self.unsorted_tasks)  # Total number of tasks
-        self.task_list = []
-        for i in range(self.x):
-            self.task_list.append({'task name' : self.unsorted_tasks[i]['task'], 'score': self.unsorted_tasks[i]['score'],
-                                   'end_date': self.unsorted_tasks[i]['task'], 'partners': self.unsorted_tasks[i]['partners'],
-                                   'place': self.unsorted_tasks[i]['place']
+        unsorted_tasks = db_tasks.search(tasks.username == self.username)
+        x = len(unsorted_tasks)  # Total number of tasks
+        task_list = []
+        for i in range(x):
+            task_list.append({'task name' : unsorted_tasks[i]['task'], 'score': unsorted_tasks[i]['score'],
+                                   'end_date': unsorted_tasks[i]['end_date'], 'partners': unsorted_tasks[i]['partners'],
+                                   'place': unsorted_tasks[i]['place']
                                   })
-        return self.task_list
+        return task_list
 
     def sort_by_name(self):
         """Sorts the user's tasks alphabetically."""
-        self.sorted_by_name_list = []
-        self.unsorted_tasks = db_tasks.search(tasks.username == self.username)
-        self.x = len(self.unsorted_tasks)  # Total number of tasks
-        self.unsorted_tasks.sort(key=lambda x: x['task'])  # Sorting by name
-        for i in range(self.x):
-            self.sorted_by_name_list.append(self.unsorted_tasks[i]['task'])
-        return self.sorted_by_name_list  # List of tasks ordered by name
+        unsorted_tasks = db_tasks.search(tasks.username == self.username)
+        x = len(unsorted_tasks)  # Total number of tasks
+        unsorted_tasks.sort(key=lambda x: x['task'])  # Sorting by name
+        task_list = []
+        for i in range(x):
+            task_list.append({'task name' : unsorted_tasks[i]['task'], 'score': unsorted_tasks[i]['score'],
+                                   'end_date': unsorted_tasks[i]['end_date'], 'partners': unsorted_tasks[i]['partners'],
+                                   'place': unsorted_tasks[i]['place']
+                                  })
+        return task_list
 
     def sort_by_end_date(self):
         """Sorts the user's tasks based on end-date"""
-        self.sorted_by_date_list = []
-        self.unsorted_tasks = db_tasks.search(tasks.username == self.username)
-        self.x = len(self.unsorted_tasks)  # Total number of tasks
-        self.unsorted_tasks.sort(key=lambda x: datetime.datetime.strptime(x['end_date'], '%d/%m/%Y %H:%M'))
+        unsorted_tasks = db_tasks.search(tasks.username == self.username)
+        x = len(unsorted_tasks)  # Total number of tasks
+        unsorted_tasks.sort(key=lambda x: datetime.datetime.strptime(x['end_date'], '%d/%m/%Y %H:%M'))
 
-        for i in range(self.x):
-            self.unsorted_tasks[i]['end_date'] = datetime.datetime.strptime(self.unsorted_tasks[i]['end_date'],
-                                                                            '%d/%m/%Y %H:%M')
-            self.sorted_by_date_list.append(self.unsorted_tasks[i]['task'])
-        return self.sorted_by_date_list
+        task_list = []
+        for i in range(x):
+            task_list.append({'task name' : unsorted_tasks[i]['task'], 'score': unsorted_tasks[i]['score'],
+                                   'end_date': unsorted_tasks[i]['end_date'], 'partners': unsorted_tasks[i]['partners'],
+                                   'place': unsorted_tasks[i]['place']
+                                  })
+        return task_list
 
     def show_ongoing_tasks(self):
         """Shows on-going tasks."""
