@@ -36,8 +36,12 @@ class Manage():
         task_list = []
         for i in range(x):
             task_list.append({'task name' : unsorted_tasks[i]['task'], 'score': unsorted_tasks[i]['score'],
-                                   'end_date': unsorted_tasks[i]['end_date'], 'partners': unsorted_tasks[i]['partners'],
-                                   'place': unsorted_tasks[i]['place']
+                                   'end_date': unsorted_tasks[i]['end_date'], 
+                                   'start_date': unsorted_tasks[i]['start_date'],
+                                   'partners': unsorted_tasks[i]['partners'],
+                                   'place': unsorted_tasks[i]['place'],
+                                   'status':  unsorted_tasks[i]['status'],
+                                   'description': unsorted_tasks[i]['description'],
                                   })
         return task_list
 
@@ -49,8 +53,12 @@ class Manage():
         task_list = []
         for i in range(x):
             task_list.append({'task name' : unsorted_tasks[i]['task'], 'score': unsorted_tasks[i]['score'],
-                                   'end_date': unsorted_tasks[i]['end_date'], 'partners': unsorted_tasks[i]['partners'],
-                                   'place': unsorted_tasks[i]['place']
+                                   'end_date': unsorted_tasks[i]['end_date'], 
+                                   'start_date': unsorted_tasks[i]['start_date'],
+                                   'partners': unsorted_tasks[i]['partners'],
+                                   'place': unsorted_tasks[i]['place'],
+                                   'status':  unsorted_tasks[i]['status'],
+                                   'description': unsorted_tasks[i]['description'],
                                   })
         return task_list
 
@@ -63,11 +71,15 @@ class Manage():
         task_list = []
         for i in range(x):
             task_list.append({'task name' : unsorted_tasks[i]['task'], 'score': unsorted_tasks[i]['score'],
-                                   'end_date': unsorted_tasks[i]['end_date'], 'partners': unsorted_tasks[i]['partners'],
-                                   'place': unsorted_tasks[i]['place']
+                                   'end_date': unsorted_tasks[i]['end_date'], 
+                                   'start_date': unsorted_tasks[i]['start_date'],
+                                   'partners': unsorted_tasks[i]['partners'],
+                                   'place': unsorted_tasks[i]['place'],
+                                   'status':  unsorted_tasks[i]['status'],
+                                   'description': unsorted_tasks[i]['description'],
                                   })
         return task_list
-
+    
     def show_ongoing_tasks(self):
         """Shows on-going tasks."""
         self.ongoing_list = []  # List of on-going tasks
