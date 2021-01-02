@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>935</width>
-    <height>300</height>
+    <width>933</width>
+    <height>579</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
   <widget class="QLineEdit" name="search_Edit">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>120</x>
      <y>90</y>
      <width>671</width>
      <height>51</height>
@@ -33,12 +33,15 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
   </widget>
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>20</y>
+     <y>10</y>
      <width>201</width>
      <height>31</height>
     </rect>
@@ -79,16 +82,14 @@
   <widget class="QPushButton" name="Micro_Button">
    <property name="geometry">
     <rect>
-     <x>720</x>
+     <x>790</x>
      <y>90</y>
      <width>51</width>
      <height>51</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">image: url(:/newPrefix/microphone.png);
-
-background-color: rgb(100, 100, 100);</string>
+    <string notr="true">image: url(:/newPrefix/microphone.png);</string>
    </property>
    <property name="text">
     <string/>
@@ -97,8 +98,8 @@ background-color: rgb(100, 100, 100);</string>
   <widget class="QPushButton" name="search_Button">
    <property name="geometry">
     <rect>
-     <x>680</x>
-     <y>197</y>
+     <x>650</x>
+     <y>490</y>
      <width>141</width>
      <height>51</height>
     </rect>
@@ -117,9 +118,24 @@ background-color: rgb(100, 100, 100);</string>
     <string>Search</string>
    </property>
   </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>170</y>
+     <width>671</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(45, 45, 45);
+font: 75 11pt &quot;MS Shell Dlg 2&quot;;
+color:#FFF;</string>
+   </property>
+  </widget>
  </widget>
  <resources>
-  <include location="micro.qrc"/>
+  <include location="Mic.qrc"/>
  </resources>
  <connections/>
 </ui>
