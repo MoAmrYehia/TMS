@@ -27,7 +27,7 @@ In our project we propose the development of a smart task monitoring application
 
 ## Installation and Running
 ```python
-ADD ME.
+ADD ME
 ```
 ## Current Contributors
 <a href="https://github.com/MoAmrYehia/Software_League_app/graphs/contributors">
