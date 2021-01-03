@@ -40,6 +40,13 @@ class Task:
         """Marks the finished tasks."""
         db_tasks.update({"status" : "Finished" } ,((tasks.task == task_name) & (tasks.username == user)) )
         
+    @staticmethod   
+    def show_task_details(task_name, user):
+        """Takes the name of the task and returns all of its details as a dictionary."""
+        task = db_tasks.search(((tasks.task == task_name) & (tasks.username == user)))
+        return task
+    
+        
 
 #Task("mohamezdrazzk", "Attend Lecturessss" , 10, "15/12/2020 07:02:06",  "12/12/2020 15:04")
 #Task.edit_task("Attend Lecturessss", "mohamezdrazzk", {'score':35})
