@@ -23,21 +23,27 @@ class Task:
                          "place": self.place, "partners": self.partner, "status" : self.status})
         
         
-    def remove_task(self):     
+    @staticmethod    
+    def remove_task(task_name, user):     
         """Remove a task from database."""
-        db_tasks.remove(tasks.task == self.task)
+        db_tasks.remove((tasks.task == task_name) & (tasks.username==user))
         
-    def edit_task(self, edits): # edits is a dict
+    @staticmethod  
+    def edit_task(task_name, user, edits): # edits is a dict
         """Edit any information of a task that has been created before."""
-        self.edits = edits
-        for key, value in edits.items():
-            db_tasks.update({key:value}, tasks.username == self.user)
         
-    def mark_as_finished(self):
+        for key, value in edits.items():
+            db_tasks.update({key:value}, ((tasks.task == task_name) & (tasks.username == user)))
+            
+    @staticmethod   
+    def mark_as_finished(task_name, user):
         """Marks the finished tasks."""
-        db_tasks.update({"status" : "Finished" } , tasks.task == self.task)
+        db_tasks.update({"status" : "Finished" } ,((tasks.task == task_name) & (tasks.username == user)) )
         
 
+#Task("mohamezdrazzk", "Attend Lecturessss" , 10, "15/12/2020 07:02:06",  "12/12/2020 15:04")
+#Task.edit_task("Attend Lecturessss", "mohamezdrazzk", {'score':35})
+#Task.mark_as_finished("Attend Lecturessss", "mohamezdrazzk")
 # = Task("mohamezdrazzk", "Attend Lecture" , 10, "15/12/2020 07:02:06",  "12/12/2020 15:04", description = "bla bla")
 #task1 = Task("mohamezdrazzk", "Attend Lecture" , 10, "15/12/2020 07:02:06",  "12/12/2020 15:04")
 #task2 = Task("mohamezdrazzk", "Write Code" , 10, "15/12/2020 07:02:04",  "13/12/2020 14:59")
