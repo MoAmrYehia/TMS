@@ -42,6 +42,7 @@ class Manage():
                                    'place': unsorted_tasks[i]['place'],
                                    'status':  unsorted_tasks[i]['status'],
                                    'description': unsorted_tasks[i]['description'],
+                                   'id': unsorted_tasks[i].doc_id
                                   })
         return task_list
 
@@ -59,6 +60,7 @@ class Manage():
                                    'place': unsorted_tasks[i]['place'],
                                    'status':  unsorted_tasks[i]['status'],
                                    'description': unsorted_tasks[i]['description'],
+                                   'id': unsorted_tasks[i].doc_id
                                   })
         return task_list
 
@@ -80,8 +82,10 @@ class Manage():
                                    'place': unsorted_tasks[i]['place'],
                                    'status':  unsorted_tasks[i]['status'],
                                    'description': unsorted_tasks[i]['description'],
+                                   'id': unsorted_tasks[i].doc_id
                                   })
         return task_list
+    
     
     def show_ongoing_tasks(self):
         """Shows on-going tasks."""
