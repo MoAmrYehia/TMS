@@ -21,32 +21,40 @@ class Task:
         db_tasks.insert({"username": self.username, "task":self.task, "description": self.description, "score":self.score ,
                          "start_date": self.start_date, "end_date": self.end_date,
                          "place": self.place, "partners": self.partner, "status" : self.status})
-        
-        
+
     @staticmethod    
-    def remove_task(task_name, user):     
+    def remove_task(task_id):     
         """Remove a task from database."""
-        db_tasks.remove((tasks.task == task_name) & (tasks.username==user))
+        #db_tasks.remove((tasks.task == task_name) & (tasks.username==user))
+        db_tasks.remove(doc_ids = [task_id])
         
     @staticmethod  
-    def edit_task(task_name, user, edits): # edits is a dict
+    def edit_task(task_id, edits): # edits is a dict
         """Edit any information of a task that has been created before."""
-        
         for key, value in edits.items():
-            db_tasks.update({key:value}, ((tasks.task == task_name) & (tasks.username == user)))
+            db_tasks.update({key:value}, doc_ids = [task_id] )
             
     @staticmethod   
-    def mark_as_finished(task_name, user):
+    def mark_as_finished(task_id):
         """Marks the finished tasks."""
-        db_tasks.update({"status" : "Finished" } ,((tasks.task == task_name) & (tasks.username == user)) )
+        #db_tasks.update({"status" : "Finished" } ,((tasks.doc_id == task_id) & (tasks.username == user)) ) #by task name
+        db_tasks.update({"status" : "Finished" } , doc_ids = [task_id] ) #by task name
+        
         
     @staticmethod   
-    def show_task_details(task_name, user):
-        """Takes the name of the task and returns all of its details as a dictionary."""
-        task = db_tasks.search(((tasks.task == task_name) & (tasks.username == user)))
+    def show_task_details(task_id):
+        """Takes the id of the task and returns all of its details as a dictionary."""
+        task = db_tasks.get(doc_id = task_id)
         return task
-    
+
+
+
+
         
+#Task.edit_task(4, {"score":50})
+#Task.show_task_details(1)
+#Task.mark_as_finished(3)
+#Task.remove_task(3)
 
 #Task("mohamezdrazzk", "Attend Lecturessss" , 10, "15/12/2020 07:02:06",  "12/12/2020 15:04")
 #Task.edit_task("Attend Lecturessss", "mohamezdrazzk", {'score':35})
