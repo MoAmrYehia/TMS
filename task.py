@@ -6,7 +6,7 @@ tasks=Query()
 class Task:
     """Class that handles all information related to tasks."""
 
-    def __init__(self, username, task, score, start_date, end_date, status = "On-going", description = None, place = None, partner= None):
+    def __init__(self, username, task, score, start_date, end_date, status = "New", description = None, place = None, partner= None):
         
         self.status = status  # Status: state of the task: Finished or On-going
         self.username = username
@@ -38,7 +38,7 @@ class Task:
     def mark_as_finished(task_id):
         """Marks the finished tasks."""
         #db_tasks.update({"status" : "Finished" } ,((tasks.doc_id == task_id) & (tasks.username == user)) ) #by task name
-        db_tasks.update({"status" : "Finished" } , doc_ids = [task_id] ) #by task name
+        db_tasks.update({"status" : "New" } , doc_ids = [task_id] ) #by task name
         
         
     @staticmethod   
@@ -53,7 +53,7 @@ class Task:
         
 #Task.edit_task(4, {"score":50})
 #Task.show_task_details(1)
-#Task.mark_as_finished(3)
+#Task.mark_as_finished(1)
 #Task.remove_task(3)
 
 #Task("mohamezdrazzk", "Attend Lecturessss" , 10, "15/12/2020 07:02:06",  "12/12/2020 15:04")
