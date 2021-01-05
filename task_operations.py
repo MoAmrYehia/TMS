@@ -165,7 +165,7 @@ class Manage():
 
                     if unsorted_tasks[i]['status'] == "Finished":
                         finished_before_deadline.append(unsorted_tasks[i]["task"])
-                        total_score = sunsorted_tasks[i]["score"] + total_score
+                        total_score = unsorted_tasks[i]["score"] + total_score
 
                     if unsorted_tasks[i]['status'] == "On-going":
                         not_finished_before_deadline.append(unsorted_tasks[i]["task"])
