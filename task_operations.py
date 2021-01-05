@@ -87,60 +87,72 @@ class Manage():
         return task_list
     
     
+    
     def show_ongoing_tasks(self):
         """Shows on-going tasks."""
-        self.ongoing_list = []  # List of on-going tasks
-        self.on_going_tasks = db_tasks.search((tasks['status'] == "On-going") & (tasks.username == self.username))
-        self.number_on_going = len(self.on_going_tasks)
+        ongoing_list = []  # List of on-going tasks
+        on_going_tasks = db_tasks.search((tasks['status'] == "On-going") & (tasks.username == self.username))
+        
+        for i in on_going_tasks:
+            ongoing_list.append({'task name' : on_going_tasks[i]['task'], 'score': on_going_tasks[i]['score'],
+                                   'end_date': on_going_tasks[i]['end_date'], 
+                                   'start_date': on_going_tasks[i]['start_date'],
+                                   'partners': on_going_tasks[i]['partners'],
+                                   'place': on_going_tasks[i]['place'],
+                                   'status':  on_going_tasks[i]['status'],
+                                   'description': on_going_tasks[i]['description'],
+                                   'id': on_going_tasks[i].doc_id
+                                  })
+        if ongoing_list:
+            return ongoing_list
 
-        for i in self.on_going_tasks:
-            self.ongoing_list.append(i["task"])
-        if self.ongoing_list:
-            return self.ongoing_list
-        else:
-            return 0  # Means that no tasks are no on-going tasks
 
     def show_finished_tasks(self):
         """Shows finished tasks."""
-        self.finished_list = []  # List of finished tasks
-        self.finished_tasks = db_tasks.search((tasks.status == "Finished") & (tasks.username == self.username))
-        self.number_finished = len(self.finished_tasks)
-
-        for i in self.finished_tasks:
-            self.finished_list.append(i["task"])
-
-        if self.finished_list:
-            return self.finished_list
-        else:
-            return 0  # Means that no tasks are finished
+        finished_list = []  # List of on-going tasks
+        finished_tasks = db_tasks.search((tasks['status'] == "On-going") & (tasks.username == self.username))
+        
+        for i in finished_tasks:
+            finished_list.append({'task name' : finished_tasks[i]['task'], 'score': finished_tasks[i]['score'],
+                                   'end_date': finished_tasks[i]['end_date'], 
+                                   'start_date':finished_tasks[i]['start_date'],
+                                   'partners': finished_tasks[i]['partners'],
+                                   'place': finished_tasks[i]['place'],
+                                   'status':  finished_tasks[i]['status'],
+                                   'description': finished_tasks[i]['description'],
+                                   'id': finished_tasks[i].doc_id
+                                  })
+        if finished_list:
+            return finished_list
 
     def show_weekly_report(self):
         """Produces a weekly report every Friday that shows (un)/finished tasks."""
-        self.unsorted_tasks = db_tasks.search(tasks.username == self.username)
-        self.total_score = 0  # Total score of the week
-        self.today = datetime.datetime.today().replace(second=0, minute=0, hour=0, microsecond=0)  # Return today's date
-
-        self.finished_before_deadline = []
-        self.not_finished_before_deadline = []
+        unsorted_tasks = db_tasks.search(tasks.username == self.username)
+        x = len(unsorted_tasks)
+        total_score = 0  # Total score of the week
+        today = datetime.datetime.today().replace(second=0, minute=0, hour=0, microsecond=0)  # Return today's date
+        finished_before_deadline = []
+        not_finished_before_deadline = []
+        flag=0
 
         # Getting all days of the current week to see which tasks have been finished on this week
 
-        self.day_1 = self.today - datetime.timedelta(days=1)
-        self.day_2 = self.today - datetime.timedelta(days=2)
-        self.day_3 = self.today - datetime.timedelta(days=3)
-        self.day_4 = self.today - datetime.timedelta(days=4)
-        self.day_5 = self.today - datetime.timedelta(days=5)
-        self.day_6 = self.today - datetime.timedelta(days=6)
+        day_1 = today - datetime.timedelta(days=1)
+        day_2 = today - datetime.timedelta(days=2)
+        day_3 = today - datetime.timedelta(days=3)
+        day_4 = today - datetime.timedelta(days=4)
+        day_5 = today - datetime.timedelta(days=5)
+        day_6 = today - datetime.timedelta(days=6)
 
-        if self.today.weekday() == 4:  # 4 means Friday
-            print("Saturday")
-            for i in range(0, self.x):
+        if today.weekday() == 4:  # 4 means Friday
+            flag=1
+            for i in range(0, x):
 
                 # Making sure all end_dates are datetime objects not str
                 try:
-                    self.unsorted_tasks[i]['end_date'] = datetime.datetime.strptime(self.unsorted_tasks[i]['end_date'],
+                    unsorted_tasks[i]['end_date'] = datetime.datetime.strptime(unsorted_tasks[i]['end_date'],
                                                                                     '%d/%m/%Y %H:%M')
-                    (self.unsorted_tasks[i]["end_date"]) = (self.unsorted_tasks[i]["end_date"]).replace(second=0,
+                    (unsorted_tasks[i]["end_date"]) = (unsorted_tasks[i]["end_date"]).replace(second=0,
                                                                                                         minute=0,
                                                                                                         hour=0,
                                                                                                         microsecond=0)
@@ -148,17 +160,17 @@ class Manage():
                     pass
 
                 # Finding out which tasks were finished this week and which weren't
-                if (self.unsorted_tasks[i][
-                    'end_date']) == self.today or self.day_1 or self.day_2 or self.day_2 or self.day_3 or self.day_4 or self.day_5 or self.day_6:
+                if (unsorted_tasks[i][
+                    'end_date']) == today or day_1 or day_2  or day_3 or day_4 or day_5 or day_6:
 
-                    if self.unsorted_tasks[i]['status'] == "Finished":
-                        self.finished_before_deadline.append(self.unsorted_tasks[i]["task"])
-                        self.total_score = self.unsorted_tasks[i]["score"] + self.total_score
+                    if unsorted_tasks[i]['status'] == "Finished":
+                        finished_before_deadline.append(unsorted_tasks[i]["task"])
+                        total_score = sunsorted_tasks[i]["score"] + total_score
 
-                    if self.unsorted_tasks[i]['status'] == "On-going":
-                        self.not_finished_before_deadline.append(self.unsorted_tasks[i]["task"])
+                    if unsorted_tasks[i]['status'] == "On-going":
+                        not_finished_before_deadline.append(unsorted_tasks[i]["task"])
 
-        return self.finished_before_deadline, self.not_finished_before_deadline, self.total_score
+        return flag, finished_before_deadline, not_finished_before_deadline, total_score
         # Returns list of finished tasks, list of not finished tasks & total score of the week
 
     def push_notifications(self):
