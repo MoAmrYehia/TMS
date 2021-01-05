@@ -272,6 +272,6 @@ class Manage():
 # Running a thread
 # th = threading.Thread(target = manage_razzk.push_notifications()).start()
 #manage_razzk.push_notifications()
-threading.Thread(target=Manage("mohamezdrazzk").push_notifications()).start()
+#threading.Thread(target=Manage("mohamezdrazzk").push_notifications()).start()
 
 
