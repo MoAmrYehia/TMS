@@ -91,7 +91,7 @@ class Manage():
     def show_ongoing_tasks(self):
         """Shows on-going tasks."""
         ongoing_list = []  # List of on-going tasks
-        on_going_tasks = db_tasks.search((tasks['status'] == "On-going") & (tasks.username == self.username))
+        on_going_tasks = db_tasks.search((tasks['status'] == "New") & (tasks.username == self.username))
         
         for i in range(len(on_going_tasks)):
             ongoing_list.append({'task name' : on_going_tasks[i]['task'], 'score': on_going_tasks[i]['score'],
@@ -104,12 +104,12 @@ class Manage():
                                    'id': on_going_tasks[i].doc_id
                                   })
         return ongoing_list
-
+ 
 
     def show_finished_tasks(self):
         """Shows finished tasks."""
         finished_list = []  # List of on-going tasks
-        finished_tasks = db_tasks.search((tasks['status'] == "Finished") & (tasks.username == self.username))
+        finished_tasks = db_tasks.search((tasks['status'] == "Done") & (tasks.username == self.username))
         
         for i in range(len(finished_tasks)):
             finished_list.append({'task name' : finished_tasks[i]['task'], 'score': finished_tasks[i]['score'],
