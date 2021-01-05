@@ -158,14 +158,13 @@ class Manage():
                     pass
 
                 # Finding out which tasks were finished this week and which weren't
-                if (unsorted_tasks[i][
-                    'end_date']) == today or day_1 or day_2  or day_3 or day_4 or day_5 or day_6:
+                if (unsorted_tasks[i]['end_date']) == today or day_1 or day_2  or day_3 or day_4 or day_5 or day_6:
 
-                    if unsorted_tasks[i]['status'] == "Finished":
+                    if unsorted_tasks[i]['status'] == "Done":
                         finished_before_deadline.append(unsorted_tasks[i]["task"])
                         total_score = unsorted_tasks[i]["score"] + total_score
 
-                    if unsorted_tasks[i]['status'] == "On-going":
+                    if unsorted_tasks[i]['status'] == "New":
                         not_finished_before_deadline.append(unsorted_tasks[i]["task"])
 
         return flag, finished_before_deadline, not_finished_before_deadline, total_score
@@ -217,32 +216,38 @@ class Manage():
 
     def set_level(self):
         """Determines silver/gold/bronze"""
-        self.total_score = 0
-        self.now = datetime.datetime.now().replace(microsecond=0)
-        self.use = db.get(users.username == self.username)
-        self.date = self.use['rdate']
-        self.creation_date = datetime.datetime.strptime(self.date, '%Y-%m-%d  %H:%M:%S')
-        self.creation_date = self.creation_date.replace(microsecond=0)
-        self.month_diff = (self.now.year - self.creation_date.year) * 12 + (self.now.month - self.creation_date.month)
+        unsorted_tasks = db_tasks.search(tasks.username == self.username)
+        x = len(unsorted_tasks)
+        total_score = 0
+        finished_tasks = db_tasks.search((tasks['status'] == "Done") & (tasks.username == self.username))
+        number_finished=len(finished_tasks)
+        
+        ongoing_tasks = db_tasks.search((tasks['status'] == "New") & (tasks.username == self.username))
+        number_on_going=len(ongoing_tasks)
+        
+        now = datetime.datetime.now().replace(microsecond=0)
+        use = db.get(users.username == self.username)
+        date = use['rdate']
+        creation_date = datetime.datetime.strptime(date, '%Y-%m-%d  %H:%M:%S')
+        creation_date = creation_date.replace(microsecond=0)
+        month_diff = (now.year - creation_date.year) * 12 + (now.month - creation_date.month)
 
         # Score Calculation
-        for i in range(self.x):
-            if self.unsorted_tasks[i]['status'] == "Finished":
-                self.total_score = self.unsorted_tasks[i]["score"] + self.total_score
-        db.update({"score": self.total_score}, users.username == self.username)
+        for i in range(x):
+            if unsorted_tasks[i]['status'] == "Done":
+                total_score = unsorted_tasks[i]["score"] + total_score
+        db.update({"score": total_score}, users.username == self.username)
         try:
-            if (self.number_finished / self.x) >= 0.5 and (self.number_finished / self.x) < 0.7 and (
-                    self.month_diff >= 1):
+            if (number_finished / x) >= 0.5 and (number_finished / x) < 0.7 and (month_diff >= 1):
                 db.update({"level": "Bronze"}, users.username == self.username)
 
-            if (self.number_finished / self.x) >= 0.7 and (self.number_finished / self.x) < 0.8 and (
-                    self.month_diff >= 2):  # Silver Level
+            if (number_finished / x) >= 0.7 and (number_finished / x) < 0.8 and (month_diff >= 2):  # Silver Level
                 db.update({"level": "Silver"}, users.username == self.username)
 
-            if (self.number_finished / self.x) >= 0.8 and (self.month_diff >= 3):  # Gold Level
+            if (number_finished / x) >= 0.8 and (month_diff >= 3):  # Gold Level
                 db.update({"level": "Gold"}, users.username == self.username)
 
-            if self.number_on_going == 0 and self.number_finished and (self.month_diff >= 3):  # Gold Level
+            if number_on_going == 0 and number_finished and (month_diff >= 3):  # Gold Level
                 db.update({"level": "Gold"}, users.username == self.username)
 
 
