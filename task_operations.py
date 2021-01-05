@@ -88,7 +88,7 @@ class Manage():
     
     
     
-  def show_ongoing_tasks(self):
+    def show_ongoing_tasks(self):
         """Shows on-going tasks."""
         ongoing_list = []  # List of on-going tasks
         on_going_tasks = db_tasks.search((tasks['status'] == "On-going") & (tasks.username == self.username))
