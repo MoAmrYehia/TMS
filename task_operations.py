@@ -172,47 +172,52 @@ class Manage():
 
     def push_notifications(self):
         """Pushes a notification at the task's end date."""
-        self.task_list = []  # List that will contain the tasks ordered
+        task_dates = [] 
+        task_names = []
 
         # Getting the On-going tasks only and excluding the finished tasks
-
-        self.on_going_tasks = db_tasks.search((tasks['status'] == "On-going") & (tasks.username == self.username))
-        self.on_going_tasks.sort(key=lambda x: datetime.datetime.strptime(x['end_date'], '%d/%m/%Y %H:%M'))
-        self.number_on_going = len(self.on_going_tasks)
-
+        on_going_tasks = db_tasks.search((tasks['status'] == "New") & (tasks.username == self.username))
+        on_going_tasks.sort(key=lambda x: datetime.datetime.strptime(x['end_date'], '%d/%m/%Y %H:%M'))
+        number_on_going = len(on_going_tasks)
 
         # Making sure that all end_dates are in datetime format not str
-
-        for i in range(0, self.number_on_going):  # number_on_going is the no. of on-going tasks
+        for i in range(0, number_on_going):  # number_on_going is the no. of on-going tasks
             try:
-                self.on_going_tasks[i]['end_date'] = datetime.datetime.strptime(self.on_going_tasks[i]['end_date'],
+                on_going_tasks[i]['end_date'] = datetime.datetime.strptime(on_going_tasks[i]['end_date'],
                                                                                 '%d/%m/%Y %H:%M')
             except:
                 pass
-            self.task_list.append(self.on_going_tasks[i]['end_date'])  # Adding the tasks to the list
-
+            task_dates.append(on_going_tasks[i]['end_date'])  # Adding the tasks to the list
+            task_names.append(on_going_tasks[i]['task'])
 
         # Measuring the time now and calculating the difference between it and the end_date of the task
-        while self.task_list:
+        while task_dates:
 
-            self.now = datetime.datetime.now().replace(microsecond=0).replace(second=0)
+            now = datetime.datetime.now().replace(microsecond=0).replace(second=0)
+            diff = (task_dates[0] - now).total_seconds()  # Time difference in seconds
 
-            self.diff = (self.task_list[0] - self.now).total_seconds()  # Time difference in seconds
 
+            if diff <= Notifer:  # Print the notification is the time difference is Notifer seconds or less assuming that will be variable
+                push_notification(task_names[0])
+                try:
+                    task_dates.pop(0)  # Removing the task from the list after notification's done
+                    task_dates.pop(0)
+                except IndexError:
+                    pass
 
-            if int(self.diff) <= Notifer:  # Print the notification is the time difference is Notifer seconds or less assuming that will be variable
-                #print( self.task_list[0])  # Task notification
-                self.task_list.remove(self.task_list[0])  # Removing the task from the list after notification's done
-                push_notification(self.on_going_tasks[0]['task'])
-
-            print(self.task_list[0])
+            #print(self.task_list[0])
             # Sleeping until the next task
-            self.now = datetime.datetime.now().replace(microsecond=0).replace(second=0)
-            self.diff = (self.task_list[0] - self.now).total_seconds()  # Time difference
+            try:
+                now = datetime.datetime.now().replace(microsecond=0).replace(second=0)
+                diff = (task_dates[0] - now).total_seconds()  # Time difference
+            except IndexError:
+                time.sleep(600) #If there are no on-going tasks for now then sleep for 5 minutes
 
-            if self.diff-Notifer >= 5:
-                time.sleep(self.diff-Notifer)
-
+            if diff-Notifer >= 5:
+                time.sleep(diff-Notifer)
+                
+    def start_notification(self):
+        threading.Thread(target= self.push_notifications).start()
 
     def set_level(self):
         """Determines silver/gold/bronze"""
