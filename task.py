@@ -37,7 +37,7 @@ class Task:
     @staticmethod   
     def mark_as_finished(task_id):
         """Marks the finished tasks."""
-        #db_tasks.update({"status" : "Finished" } ,((tasks.doc_id == task_id) & (tasks.username == user)) ) #by task name
+        #db_tasks.update({"status" : "Done" } ,((tasks.doc_id == task_id) & (tasks.username == user)) ) #by task name
         db_tasks.update({"status" : "New" } , doc_ids = [task_id] ) #by task name
         
         
