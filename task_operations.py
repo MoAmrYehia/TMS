@@ -103,8 +103,7 @@ class Manage():
                                    'description': on_going_tasks[i]['description'],
                                    'id': on_going_tasks[i].doc_id
                                   })
-        if ongoing_list:
-            return ongoing_list
+        return ongoing_list
 
 
     def show_finished_tasks(self):
@@ -122,8 +121,7 @@ class Manage():
                                    'description': finished_tasks[i]['description'],
                                    'id': finished_tasks[i].doc_id
                                   })
-        if finished_list:
-            return finished_list
+        return finished_list
         
     def show_weekly_report(self):
         """Produces a weekly report every Friday that shows (un)/finished tasks."""
