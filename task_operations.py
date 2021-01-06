@@ -9,6 +9,8 @@ import datetime
 import threading
 import time
 from tinydb import TinyDB, Query, where
+from tinydb_smartcache import SmartCacheTable #Makes query cache update whenever a change in the database if encountered
+TinyDB.table_class = SmartCacheTable
 import re
 import regex
 import platform
