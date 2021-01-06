@@ -1,4 +1,6 @@
 from tinydb import TinyDB, Query 
+from tinydb_smartcache import SmartCacheTable #Makes query cache update whenever a change in the database if encountered
+TinyDB.table_class = SmartCacheTable
 
 db_tasks=TinyDB('taskdb.json')
 tasks=Query()
