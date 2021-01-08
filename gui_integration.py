@@ -445,7 +445,7 @@ class show_aLL(QListWidget):
 class Ui_Form(QMainWindow,QListWidget):
     def __init__(self,username):
         super(Ui_Form, self).__init__()
-        loadUi("second.ui",self)
+        loadUi("second22.ui",self)
         self.username=username
         
         
