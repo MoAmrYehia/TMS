@@ -12,7 +12,6 @@ from tinydb import TinyDB, Query, where
 from tinydb_smartcache import SmartCacheTable #Makes query cache update whenever a change in the database if encountered
 TinyDB.table_class = SmartCacheTable
 import re
-import regex
 import platform
 
 
@@ -33,6 +32,8 @@ class Manage():
 
     def show_tasks(self):
         """Shows the user's tasks."""
+        db_tasks = TinyDB('taskdb.json')
+        tasks = Query()
         unsorted_tasks = db_tasks.search(tasks.username == self.username)
         x = len(unsorted_tasks)  # Total number of tasks
         task_list = []
@@ -50,7 +51,9 @@ class Manage():
 
     def sort_by_name(self):
         """Sorts the user's tasks alphabetically."""
-        unsorted_tasks = db_tasks.search(tasks.username == self.username)
+        db_tasks = TinyDB('taskdb.json')
+        tasks = Query()
+        unsorted_tasks = db_tasks.search((tasks['status'] == "New") & (tasks.username == self.username))
         x = len(unsorted_tasks)  # Total number of tasks
         unsorted_tasks.sort(key=lambda x: x['task'])  # Sorting by name
         task_list = []
@@ -68,7 +71,9 @@ class Manage():
 
     def sort_by_end_date(self):
         """Sorts the user's tasks based on end-date"""
-        unsorted_tasks = db_tasks.search(tasks.username == self.username)
+        db_tasks = TinyDB('taskdb.json')
+        tasks = Query()
+        unsorted_tasks = db_tasks.search((tasks['status'] == "New") & (tasks.username == self.username))
         x = len(unsorted_tasks)  # Total number of tasks
         try:
             unsorted_tasks.sort(key=lambda x: datetime.datetime.strptime(x['end_date'], '%d/%m/%Y %H:%M'))
@@ -89,11 +94,12 @@ class Manage():
         return task_list
     
     
-    
     def show_ongoing_tasks(self):
         """Shows on-going tasks."""
         ongoing_list = []  # List of on-going tasks
-        on_going_tasks = db_tasks.search((tasks['status'] == "New") & (tasks.username == self.username))
+        db_tasks = TinyDB('taskdb.json')
+        tasks = Query()
+        on_going_tasks = db_tasks.search((tasks.status == "New") & (tasks.username == self.username))
         
         for i in range(len(on_going_tasks)):
             ongoing_list.append({'task name' : on_going_tasks[i]['task'], 'score': on_going_tasks[i]['score'],
@@ -111,6 +117,8 @@ class Manage():
     def show_finished_tasks(self):
         """Shows finished tasks."""
         finished_list = []  # List of on-going tasks
+        db_tasks = TinyDB('taskdb.json')
+        tasks = Query()
         finished_tasks = db_tasks.search((tasks['status'] == "Done") & (tasks.username == self.username))
         
         for i in range(len(finished_tasks)):
@@ -127,6 +135,8 @@ class Manage():
         
     def show_weekly_report(self):
         """Produces a weekly report every Friday that shows (un)/finished tasks."""
+        db_tasks = TinyDB('taskdb.json')
+        tasks = Query()
         unsorted_tasks = db_tasks.search(tasks.username == self.username)
         x = len(unsorted_tasks)
         total_score = 0  # Total score of the week
@@ -176,6 +186,8 @@ class Manage():
         """Pushes a notification at the task's end date."""
         task_dates = [] 
         task_names = []
+        db_tasks = TinyDB('taskdb.json')
+        tasks = Query()
 
         # Getting the On-going tasks only and excluding the finished tasks
         on_going_tasks = db_tasks.search((tasks['status'] == "New") & (tasks.username == self.username))
@@ -223,6 +235,8 @@ class Manage():
 
     def set_level(self):
         """Determines silver/gold/bronze"""
+        db_tasks = TinyDB('taskdb.json')
+        tasks = Query()
         unsorted_tasks = db_tasks.search(tasks.username == self.username)
         x = len(unsorted_tasks)
         total_score = 0
@@ -264,16 +278,11 @@ class Manage():
     def search(self, s_key):
         """Function that does both recommendations and search for tasks."""
         # that can both work as search and recommendation with task name Query send for both you can slice it as you wanna
+        db_tasks = TinyDB('taskdb.json')
+        tasks = Query()
         return db_tasks.search(
             tasks.task.matches(s_key + '.*', flags=re.IGNORECASE) & (tasks.username == self.username))
         #print(db_tasks.search(where('task').matches(s_key + '.*') & (tasks.username == self.username)))  # case sensitve
 
 
 #print(Manage("mohamezdrazzk").sort_by_end_date())
-
-# Running a thread
-# th = threading.Thread(target = manage_razzk.push_notifications()).start()
-#manage_razzk.push_notifications()
-#threading.Thread(target=Manage("mohamezdrazzk").push_notifications()).start()
-
-
