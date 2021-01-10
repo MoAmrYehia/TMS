@@ -226,7 +226,7 @@ class Manage():
                 
     def start_notification(self):
         threading.Thread(target= self.push_notifications).start()
-rere
+
 
     def set_level(self):
         """Determines silver/gold/bronze"""
@@ -267,7 +267,6 @@ rere
 
             if number_on_going == 0 and number_finished and (month_diff >= 3):  # Gold Level
                 db.update({"level": "Gold"}, users.username == self.username)
-
 
         except ZeroDivisionError:  # Happens if user has zero tasks
             pass
