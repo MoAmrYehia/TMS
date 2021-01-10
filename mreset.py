@@ -6,9 +6,7 @@ Des: hasing passwords
 Last-M : Razzk
 M-date 01/10/2021 5:26am
 """
-
 import smtplib
-
 def mail_code(mail, code):
     try:
         server = smtplib.SMTP('smtp.gmail.com:587')
