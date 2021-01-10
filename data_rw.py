@@ -2,9 +2,9 @@
 Project :SWE-CSE2020
 Created by : Razzk
 C-Date : 12/7/2020 , 7:15Pm
-Des: main funcation for user modifing and validation
+Des: main function for user modifying and validation
 Last-M : Razzk
-M-date 12/7/2020 10:50pm
+M-date 10/1/2021 4:55pm
 """
 
 from tinydb import TinyDB, Query  # tiny database inheritace
@@ -12,6 +12,7 @@ import re  # regix lib for mail validation
 from sechashuli import make_pw_hash, \
     check_pw_hash  # hashing class to convert plain password to sha-256 hasing and compare
 import datetime
+
 db = TinyDB('usrdb.json')  # defind database location as json file
 users = Query()  # implementing data as user query
 
@@ -53,7 +54,7 @@ class validation:  # validation class to check existence and data validity
 
 class user:  # main user class for all user data assiging as user or admin
 
-    def __init__(self, first_name, last_name, email, phone, username, role, password,level="normal",score=0):
+    def __init__(self, first_name, last_name, email, phone, username, role, password, level="normal", score=0):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
@@ -63,15 +64,14 @@ class user:  # main user class for all user data assiging as user or admin
         self.level = level
         self.score = score
         self.pw_hash = make_pw_hash(password)
-        self.rdate=str(datetime.datetime.today().replace(second=0, microsecond=0))
-
+        self.rdate = str(datetime.datetime.today().replace(second=0, microsecond=0))
 
     def adduser(self):  # add user and admin in database
         checker = validation(self.email, self.username, self.phone)
         status, error = checker.check_existence()
         val_status, val_error = checker.check_validity()
-        if val_status == True:
-            if status == False:
+        if val_status:
+            if not status:
                 return True, error
             else:
 
@@ -79,7 +79,7 @@ class user:  # main user class for all user data assiging as user or admin
                     {'first_name': self.first_name, 'last_name': self.last_name, 'email': self.email,
                      'phone': self.phone,
                      'username': self.username, 'level': self.level,
-                     'score': self.score,'rdate': self.rdate,
+                     'score': self.score, 'rdate': self.rdate,
                      'password': self.pw_hash, 'role': self.role})
                 return True, "Success Sign up"
         else:
@@ -130,7 +130,7 @@ class user:  # main user class for all user data assiging as user or admin
             print("you Entered wrong password")
 
 
-class Hall_of_Fame():
+class Hall_of_Fame:
     """Class that determines the top 10 users."""
 
     def __init__(self):
@@ -144,16 +144,12 @@ class Hall_of_Fame():
         print(self.first_ten)
 
         if self.first_ten:
-            #print("The top users are: ")
+            # print("The top users are: ")
             for i in range(len(self.first_ten)):
                 return self.first_ten[i]["username"], self.first_ten[i]["score"]
 
 
-user("mohamed", "razzk", "azmohaemdrazzk@gmail.com", "0100620034618", "mohamezdrazzk", "user", "pass@word").adduser()
-
-
-"""" ex-test unite 
-
+"""" Test Unit 
 user("mohamed", "razzk", "amohaemdrazzk@gmail.com", "010062034618", "mohamedrazzk", "user", "pass@word").adduser()
 result = db.search(users.username=='mohamedrazzk')
 print(result)
@@ -166,7 +162,6 @@ user.delete("mohamedrazzk")
 item=db.get(doc_id=1)
 print(type(item))
 print(user.find("phone","010062034618"))
-
+user("mohamed", "razzk", "azmohaemdrazzk@gmail.com", "0100620034618", "mohamezdrazzk", "user", "pass@word").adduser()
+# print( Hall_of_Fame().fame())
 """
-#print( Hall_of_Fame().fame())
-
