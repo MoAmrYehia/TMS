@@ -9,8 +9,6 @@ import datetime
 import threading
 import time
 from tinydb import TinyDB, Query, where
-#from tinydb_smartcache import SmartCacheTable #Makes query cache update whenever a change in the database if encountered
-#TinyDB.table_class = SmartCacheTable
 import re
 import platform
 
@@ -238,6 +236,8 @@ rere
         """Determines silver/gold/bronze"""
         db_tasks = TinyDB('taskdb.json')
         tasks = Query()
+        db = TinyDB('usrdb.json')  
+        users = Query() 
         unsorted_tasks = db_tasks.search(tasks.username == self.username)
         x = len(unsorted_tasks)
         total_score = 0
