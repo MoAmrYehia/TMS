@@ -1,6 +1,14 @@
+"""
+Project :SWE-CSE2020
+Created by : Razzk
+C-Date : 12/28/2020 , 9:18Pm
+Des: this class is used for sending notifcation to windows and linux center
+Last-M : Razzk
+M-date 10/1/2021 5:32pm
+"""
 
+#this calss
 import platform
-
 def push_notification(message):
     if platform.system() == "Windows":
         from win10toast import ToastNotifier
@@ -15,7 +23,3 @@ def push_notification(message):
                                  "notification-message-im"  # Icon name
                                  )
         n.show()
-
-
-
-#push_notification("You have task now ")
