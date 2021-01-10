@@ -274,12 +274,13 @@ class Manage():
     def search(self, s_key):
         """Function that does both recommendations and search for tasks."""
         # that can both work as search and recommendation with task name Query send for both you can slice it as you wanna
-        list = [] #list that contains names of recommended tasks
         task = db_tasks.search(
             tasks.task.matches(s_key + '.*', flags=re.IGNORECASE) & (tasks.username == self.username))
-        for i in task:
-            list.append(i["task"])
-        return list
+        
+        if task:
+            return 1, task[0]["task"]
+        else:
+            return 0
         #print(db_tasks.search(where('task').matches(s_key + '.*') & (tasks.username == self.username)))  # case sensitve
 
 
