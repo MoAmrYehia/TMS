@@ -8,22 +8,18 @@ from push_notification_sc import push_notification
 import datetime
 import threading
 import time
-from tinydb import TinyDB, Query, where
+from tinydb import TinyDB, Query
 import re
-import platform
-
 
 Notifer=30
 db_tasks = TinyDB('taskdb.json')
 tasks = Query()
 db_scoring = TinyDB('scoringdb.json')
 scores = Query()
-db = TinyDB('usrdb.json')  # defind database location as json file
-users = Query()  # implementing data as user query
 
 
 class Manage():
-    """Class that manages operations on the user's tasks"""
+    """Class that manages operations on the user's tasks."""
 
     def __init__(self, username):
         self.username = username
@@ -279,10 +275,12 @@ rere
     def search(self, s_key):
         """Function that does both recommendations and search for tasks."""
         # that can both work as search and recommendation with task name Query send for both you can slice it as you wanna
-        db_tasks = TinyDB('taskdb.json')
-        tasks = Query()
-        return db_tasks.search(
+        list = [] #list that contains names of recommended tasks
+        task = db_tasks.search(
             tasks.task.matches(s_key + '.*', flags=re.IGNORECASE) & (tasks.username == self.username))
+        for i in task:
+            list.append(i["task"])
+        return list
         #print(db_tasks.search(where('task').matches(s_key + '.*') & (tasks.username == self.username)))  # case sensitve
 
 
