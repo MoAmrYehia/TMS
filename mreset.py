@@ -4,13 +4,12 @@ Created by : Razzk
 C-Date : 12/8/2020 , 12:15am
 Des: hasing passwords
 Last-M : Razzk
-M-date 12/8/2020 12:27am
+M-date 01/10/2021 5:26am
 """
 
 import smtplib
 
 def mail_code(mail, code):
-
     try:
         server = smtplib.SMTP('smtp.gmail.com:587')
         server.ehlo()
@@ -20,9 +19,5 @@ def mail_code(mail, code):
         server.sendmail("recovery.swcse2020@gmail.com", mail, message)
         server.quit()
         print("Code had been sent")
-
     except:
         print("Email Faild to send ")
-
-
-#mail_code("mohamedrazzk@gmail.com","55555555")
