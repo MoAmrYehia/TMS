@@ -162,7 +162,7 @@ selection-color: rgb(255, 255, 255);
 border-color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>Finish</string>
+    <string>Back</string>
    </property>
   </widget>
  </widget>
