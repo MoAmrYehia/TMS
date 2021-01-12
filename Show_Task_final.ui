@@ -202,7 +202,7 @@ color:rgb(0, 0, 0);</string>
 color: rgb(0, 0, 0);</string>
    </property>
    <property name="text">
-    <string>Status</string>
+    <string>Stutes</string>
    </property>
   </widget>
   <widget class="QTextBrowser" name="stutes_browser">
