@@ -300,7 +300,7 @@ color: rgb(0, 0, 0);</string>
 color: rgb(0, 0, 0);</string>
    </property>
    <property name="text">
-    <string>Score</string>
+    <string>Review</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_16">
@@ -348,7 +348,7 @@ color: rgb(0, 0, 0);</string>
 color: rgb(0, 0, 0);</string>
    </property>
    <property name="text">
-    <string>End Time</string>
+    <string>Start Time</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_18">
@@ -372,7 +372,7 @@ color: rgb(0, 0, 0);</string>
 color: rgb(0, 0, 0);</string>
    </property>
    <property name="text">
-    <string>Status</string>
+    <string>Stutes</string>
    </property>
   </widget>
   <widget class="QComboBox" name="comboBox">
@@ -472,13 +472,6 @@ color: rgb(0, 0, 0);</string>
     <string notr="true">/*color:rgb(255, 255, 255);*/
 color: rgb(0, 0, 0);</string>
    </property>
-   <property name="date">
-    <date>
-     <year>2021</year>
-     <month>1</month>
-     <day>1</day>
-    </date>
-   </property>
    <property name="displayFormat">
     <string>M/d/yyyy h:mm </string>
    </property>
@@ -502,13 +495,6 @@ color: rgb(0, 0, 0);</string>
    <property name="styleSheet">
     <string notr="true">/*color:rgb(255, 255, 255);*/
 color: rgb(0, 0, 0);</string>
-   </property>
-   <property name="date">
-    <date>
-     <year>2021</year>
-     <month>1</month>
-     <day>1</day>
-    </date>
    </property>
    <property name="displayFormat">
     <string notr="true">M/d/yyyy h:mm </string>
