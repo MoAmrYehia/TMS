@@ -27,13 +27,15 @@ class Task:
     @staticmethod    
     def remove_task(task_id):     
         """Remove a task from database."""
-
+        db_tasks=TinyDB('taskdb.json')
+        tasks=Query()
         db_tasks.remove(doc_ids = [task_id])
         
     @staticmethod  
     def edit_task(task_id, edits): # edits is a dict
         """Edit any information of a task that has been created before."""
-        
+        db_tasks=TinyDB('taskdb.json')
+        tasks=Query()
         #print(task_id)
         for key, value in edits.items():
             db_tasks.update({key:value}, doc_ids = [task_id] )
@@ -41,7 +43,8 @@ class Task:
     @staticmethod   
     def mark_as_finished(task_id):
         """Marks the finished tasks."""
-
+        db_tasks=TinyDB('taskdb.json')
+        tasks=Query()
         db_tasks.update({"status" : "Done" } , doc_ids = [task_id] ) #by task name
         task = db_tasks.get(doc_id = task_id)
         Manage(task["username"]).set_level()
@@ -50,6 +53,8 @@ class Task:
     @staticmethod   
     def show_task_details(task_id):
         """Takes the id of the task and returns all of its details as a dictionary."""
+        db_tasks=TinyDB('taskdb.json')
+        tasks=Query()
         task = db_tasks.get(doc_id = task_id)
         return task
 
