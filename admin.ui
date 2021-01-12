@@ -17,44 +17,11 @@
    <string notr="true">/*background-color: rgb(85, 87, 83)</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>10</y>
-      <width>131</width>
-      <height>91</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Ubuntu Condensed</family>
-      <pointsize>17</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::RightToLeft</enum>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../../Desktop/admin-icon-trendy-design-style-isolated-white-background-vector-simple-modern-flat-symbol-web-site-mobile-logo-app-135742404.jpg</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="email">
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>130</y>
+      <y>190</y>
       <width>171</width>
       <height>31</height>
      </rect>
@@ -67,7 +34,7 @@
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>180</y>
+      <y>250</y>
       <width>171</width>
       <height>31</height>
      </rect>
@@ -83,7 +50,7 @@
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>260</y>
+      <y>330</y>
       <width>171</width>
       <height>41</height>
      </rect>
@@ -98,6 +65,32 @@
     </property>
     <property name="text">
      <string>Log in </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>407</x>
+      <y>330</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>201</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
@@ -116,4 +109,5 @@
  <resources/>
  <connections/>
 </ui>
+
 
