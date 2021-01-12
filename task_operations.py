@@ -274,6 +274,8 @@ class Manage():
     def search(self, s_key):
         """Function that does both recommendations and search for tasks."""
         # that can both work as search and recommendation with task name Query send for both you can slice it as you wanna
+        db_tasks = TinyDB('taskdb.json')
+        tasks = Query()
         task = db_tasks.search(
             tasks.task.matches(s_key + '.*', flags=re.IGNORECASE) & (tasks.username == self.username))
         
