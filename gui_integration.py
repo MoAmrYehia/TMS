@@ -12,9 +12,9 @@ This is a temporary script file.
 
 import sys
 import io
-import gmaps
+#import gmaps
 import googlemaps
-import gmaps.datasets
+#import gmaps.datasets
 #gmaps.configure(api_key='AIzaSyBv3H5SMUpoLqqFmoeg1tbJS6UBmoEPVbk')
 map_client=googlemaps.Client('AIzaSyBv3H5SMUpoLqqFmoeg1tbJS6UBmoEPVbk')
 import folium
@@ -28,7 +28,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 from PyQt5.uic import loadUi
-import socket
+#import socket
 
 from task import *
 
@@ -175,6 +175,7 @@ class makepass(QMainWindow):
     def gotoreset(self):
         if self.passw.text()==self.confpass.text():
             status=user_auth(str(self.email),"").reset_handler(self.passw.text())
+            user.modify(self.email, "password", self.passw.text())
             if status==True:
                 widget.addWidget(login())
                 widget.setCurrentIndex(widget.currentIndex()+1)
@@ -499,15 +500,14 @@ class Ui_Form(QMainWindow,QListWidget):
     def textchanged(self,text):
         #print(text)
         flag,t=Manage(self.username).search(text)
-        #print(t)
+        #print(Manage(self.username).search(text))
         if flag==1:
             self.partner_Edit.setText(t)
     def gotomap(self):
         Maap()
         
     def finish1(self):
-        
-        
+    
         Task(self.username,self.partner_Edit.text(),self.comboBox_2.currentIndex()+1,self.start_Time_Edit.text(),self.endTimeE_dit.text(),self.comboBox.currentText(),self.partner_Edit_2.text(),self.partner_Edit_4.text(),self.partner_Edit_3.text())
         
         #l1=QListWidgetItem(self.partner_Edit.text(),self.partner_Edit3.text())
@@ -558,11 +558,12 @@ class edit_profile(QMainWindow):
         loadUi("Edit_Profile2.ui",self)
         self.username=username
         p_list=user.find("username",self.username)
+        print(p_list)
         self.f_n.setText(p_list[0]["first_name"])
         self.last_name_Edit.setText(p_list[0]["last_name"])
         self.email_Edit.setText(p_list[0]["email"])
         self.phone_Edit.setText(p_list[0]["phone"])
-        self.rank_Edit.setText(p_list[0]["level"])
+        #self.rank_Edit.setText(p_list[0]["level"])
         
         
         self.done_bt.clicked.connect(self.home1)
@@ -570,6 +571,10 @@ class edit_profile(QMainWindow):
     
     
     def home1(self):
+        user.modify(self.username, "first_name", self.f_n.text())
+        user.modify(self.username, "last_name", self.last_name_Edit.text())
+        user.modify(self.username, "email", self.email_Edit.text())
+        user.modify(self.username, "phone", self.phone_Edit.text())
         widget.addWidget(mainWindowTask(self.username))
         widget.setCurrentIndex(widget.currentIndex()+1)
     
@@ -638,14 +643,18 @@ class search(QMainWindow):
         self.table.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.setModel(filter_proxy_model)
+        self.search_Button.clicked.connect(self.gotoback)
         self.table.doubleClicked.connect(self.gotoshow)
         #form.addWidget(table)
         self.Micro_Button.clicked.connect(self.gotovoice)
         
+    def gotoback(self):
+        widget.addWidget(mainWindowTask(self.username))
+        widget.setCurrentIndex(widget.currentIndex()+1)
+        
     def gotovoice(self):
-        #print("voice")
+       
         r = sr.Recognizer()
-        #while 1:
         with sr.Microphone() as source:
             print("Speak Anything :")
             self.label_2.setText("Speak Anything :")
@@ -671,9 +680,9 @@ class show_spacific_task(QMainWindow):
         self.username=username
         self.name=name
         i=int(name[8:10])
-        #print(i)
+        print(i)
         task_list=Task.show_task_details(i)
-        #print(task_list)
+        print(task_list)
         #task_list=Manage(self.username).show_tasks()
         self.Task_browser.append(task_list["task"])
         self.description_browser.append(task_list["description"])
@@ -743,7 +752,7 @@ class show_task(QMainWindow):
     def gotodel(self):
         i=int(self.name[4:6])-1
         #print(i)
-        task_list=Manage(self.username).show_tasks()
+        task_list=Manage(self.username).show_ongoing_tasks()
         Task.remove_task(task_list[i]["id"])
         widget.addWidget(mainWindowTask(self.username))
         widget.setCurrentIndex(widget.currentIndex()+1)
