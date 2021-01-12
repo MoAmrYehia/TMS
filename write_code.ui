@@ -38,7 +38,7 @@
      <enum>Qt::RightToLeft</enum>
     </property>
     <property name="text">
-     <string>Reset password</string>
+     <string/>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -94,4 +94,3 @@
  <resources/>
  <connections/>
 </ui>
-
