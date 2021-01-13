@@ -129,24 +129,30 @@ class user:  # main user class for all user data assiging as user or admin
         else:
             print("you Entered wrong password")
 
-
 class Hall_of_Fame:
     """Class that determines the top 10 users."""
 
     def __init__(self):
         self.score = 0
-        self.gold_users = db.search(users.level == "Gold")  # A top 10 user must be Gold
-
+        
     def fame(self):
 
-        self.gold_users.sort(key=lambda x: x['score'], reverse=True)  # Sorting the users based on scores
-        self.first_ten = list(self.gold_users)[:10]  # Returning 10 users with highest scores
-        print(self.first_ten)
+        db = TinyDB('usrdb.json')  
+        users = Query() 
+        gold_users = db.search(users.level == "Gold")  # A top 10 user must be Gold
+        top_ten = []
+        gold_users.sort(key=lambda x: x['score'], reverse=True)  # Sorting the users based on scores
+        first_ten = list(gold_users)[:10]  # Returning 10 users with highest scores
+        #print(self.first_ten)
 
-        if self.first_ten:
+        if first_ten:
             # print("The top users are: ")
-            for i in range(len(self.first_ten)):
-                return self.first_ten[i]["username"], self.first_ten[i]["score"]
+            for i in range(len(first_ten)):
+                #return first_ten[i]["username"], first_ten[i]["score"]
+                top_ten.append({"username": first_ten[i]["username"], "score": first_ten[i]["score"]})
+            return 1, top_ten
+        else:
+            return 0
 
 
 """" Test Unit 
