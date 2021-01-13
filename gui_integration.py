@@ -233,6 +233,7 @@ class mainWindowTask(QMainWindow):
         super(mainWindowTask, self).__init__()
         loadUi("mainwindow_task.ui",self)
         self.Add2.setIcon(QIcon("Obj/ico/images_1.jpeg"))
+	self.ha.setIcon(QIcon("Halloffame.png"))
         self.search.setIcon(QIcon("Obj/ico/images.png"))
         self.notification.clear()
         self.comboBox.clear()
@@ -274,7 +275,7 @@ class mainWindowTask(QMainWindow):
         self.comboBox.activated.connect(self.gotopf)
         
         self.search.clicked.connect(self.gotosearch)
-        
+        self.ha.clicked.connect(self.gotohall)
         self.Add.clicked.connect(self.gotoAdd)
         self.Add2.clicked.connect(self.gotoAdd)
         self.sortN.clicked.connect(self.gotosort_by_name)
@@ -284,7 +285,10 @@ class mainWindowTask(QMainWindow):
         #self.task_view.setContextMenuPolicy(Qt.CustomContextMenu)
         #self.task_view.customContextMenuRequested.connect(self.gotomenu)
         #self.task_view.itemClicked.connect(self.gotomenu)
-        
+    def gotohall(self):
+        widget.addWidget(hall_of_fame(self.username))
+        widget.setCurrentIndex(widget.currentIndex()+1)
+	
     def contextMenuEvent(self, event):
         contextMenu=QMenu(self)
         delete=contextMenu.addAction("Delete")
@@ -401,7 +405,35 @@ class mainWindowTask(QMainWindow):
             l1.setText("Task"+str(i+1)+"\n"+"name: "+task_list[i]["task name"]+"\n"+"score: "+str(task_list[i]["score"])+"\n"+"partners:"+task_list[i]["partners"]+"\n"+"EndDate: "+task_list[i]["end_date"]+"\n")
             self.task_view.addItem(l1)
        
+class hall_of_fame(QMainWindow):
+    def __init__(self,username):
+        super(hall_of_fame,self).__init__()
+        loadUi("Hall_of_fame.ui",self)
+        self.username=username
+        user_list=Hall_of_Fame.fame()
 
+        #print(user_list)
+        users=[]
+        self.x=len(user_list)
+        for user in range(self.x):
+            users.append(user_list[user]["username"]+" "+str(user_list[user]["score"]))
+
+        model=QStandardItemModel(len(users),1)
+        model.setHorizontalHeaderLabels(['Top 10'])
+
+        for row,company in enumerate(users):
+            item=QStandardItem(company)
+            model.setItem(row,0,item)
+        filterr=QSortFilterProxyModel()
+        filterr.setSourceModel(model)
+       # self.table.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.table.setModel(filterr)
+        self.back.clicked.connect(self.gotoback)
+
+    def gotoback(self):
+        widget.addWidget(mainWindowTask(self.username))
+        widget.setCurrentIndex(widget.currentIndex()+1)
     
 class show_done_tasks(QListWidget):
     
