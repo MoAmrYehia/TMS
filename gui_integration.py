@@ -242,7 +242,7 @@ class mainWindowTask(QMainWindow):
         self.search.setIcon(QIcon("Ojb/ico/images.png"))
         self.notification.clear()
         self.comboBox.clear()
-        self.notification.addItem(QIcon("appointment-reminders.png")," ")
+        self.notification.addItem(QIcon("Obj/ico/appointment-reminders.png")," ")
         self.comboBox.addItem(QIcon("Obj/ico/user_Ico.jpeg")," ")
         self.comboBox.addItem("profile")
         self.comboBox.addItem("SignOut")
