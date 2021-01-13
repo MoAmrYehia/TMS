@@ -8,9 +8,12 @@ This is a temporary script file.
 # signals use connect
 
 
-from data_rw import *
+#from tinydb import TinyDB
+
 import sys
 import io
+#import gmaps
+
 import googlemaps
 #import gmaps.datasets
 #gmaps.configure(api_key='AIzaSyBv3H5SMUpoLqqFmoeg1tbJS6UBmoEPVbk')
@@ -26,7 +29,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 from PyQt5.uic import loadUi
-#import socket
+import socket
 
 from task import *
 
@@ -34,6 +37,7 @@ from task import *
 from task_operations import*
 from auth import *
 import speech_recognition as sr
+from data_rw import Hall_of_Fame
 
 #from PyQt5 import QPixmap
 
@@ -44,7 +48,7 @@ class login(QMainWindow):
         super(login, self).__init__()
         loadUi("mainwindow.ui",self)
         self.loginbutton.clicked.connect(self.loginfunc)
-        pixmap=QPixmap("Obj/ico/TMS_Logo.png")
+        pixmap=QPixmap("TMS_Logo.png")
         self.label.setPixmap(pixmap)
         self.label.resize(pixmap.width(),pixmap.height())
         #self.setLayout(QImage("download.jpeg"))
@@ -173,7 +177,6 @@ class makepass(QMainWindow):
     def gotoreset(self):
         if self.passw.text()==self.confpass.text():
             status=user_auth(str(self.email),"").reset_handler(self.passw.text())
-            user.modify(self.email, "password", self.passw.text())
             if status==True:
                 widget.addWidget(login())
                 widget.setCurrentIndex(widget.currentIndex()+1)
@@ -193,7 +196,7 @@ class signup(QMainWindow):
     def __init__(self):
         super(signup,self).__init__()
         loadUi("sign_up.ui",self)
-        pixmap=QPixmap("Obj/ico/sign_up.jpg")
+        pixmap=QPixmap("107341878-sign-up-button-click-glyph-icon-silhouette-symbol-new-user-registration-membership-hand-pressing-but.jpg")
         self.label.setPixmap(pixmap)
         #self.label.setSize(100,100)
         #self.label.resize(pixmap.width(),pixmap.height())
@@ -236,12 +239,13 @@ class mainWindowTask(QMainWindow):
     def __init__(self,username):
         super(mainWindowTask, self).__init__()
         loadUi("mainwindow_task.ui",self)
-        self.Add2.setIcon(QIcon("Obj/ico/images_1.jpeg"))
-        self.search.setIcon(QIcon("Obj/ico/images.png"))
+        self.ha.setIcon(QIcon("Halloffame.png"))
+        self.Add2.setIcon(QIcon("images (1).jpeg"))
+        self.search.setIcon(QIcon("images.png"))
         self.notification.clear()
         self.comboBox.clear()
-        self.notification.addItem(QIcon("Obj/ico/appointment-reminders.png")," ")
-        self.comboBox.addItem(QIcon("Obj/ico/user_Ico.jpeg")," ")
+        self.notification.addItem(QIcon("appointment-reminders.png")," ")
+        self.comboBox.addItem(QIcon("download (1).jpeg")," ")
         self.comboBox.addItem("profile")
         self.comboBox.addItem("SignOut")
         #self.notification.setStyleSheet("border-image : (file:///home/ehab/Desktop/download.jpeg)") 
@@ -278,6 +282,7 @@ class mainWindowTask(QMainWindow):
         self.comboBox.activated.connect(self.gotopf)
         
         self.search.clicked.connect(self.gotosearch)
+        self.ha.clicked.connect(self.gotohall)
         
         self.Add.clicked.connect(self.gotoAdd)
         self.Add2.clicked.connect(self.gotoAdd)
@@ -288,7 +293,11 @@ class mainWindowTask(QMainWindow):
         #self.task_view.setContextMenuPolicy(Qt.CustomContextMenu)
         #self.task_view.customContextMenuRequested.connect(self.gotomenu)
         #self.task_view.itemClicked.connect(self.gotomenu)
-        
+    
+    def gotohall(self):
+        widget.addWidget(hall_of_fame(self.username))
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
     def contextMenuEvent(self, event):
         contextMenu=QMenu(self)
         delete=contextMenu.addAction("Delete")
@@ -395,7 +404,7 @@ class mainWindowTask(QMainWindow):
        # show tasks sorteed by appointment from data base
        self.task_view.clear()
        task_list=Manage(self.username).sort_by_end_date()
-       #print(task_list)
+       print(task_list)
        self.x=len(task_list)
        for i in range(self.x):
             l1=QListWidgetItem()
@@ -485,27 +494,21 @@ class Ui_Form(QMainWindow,QListWidget):
     def __init__(self,username):
         super(Ui_Form, self).__init__()
         loadUi("Add_Task_final.ui",self)
-        pixmap=QPixmap("Obj/ico/task_clip.jpg")
+        pixmap=QPixmap("task-clipboard-editor-checklist-complete-worksheet-project-notebook-presentation-.jpg")
         
         self.labelmg.setPixmap(pixmap)
         
-        self.toolButton.setIcon(QIcon("Obj/ico/user_Ico.jpeg"))
+        self.toolButton.setIcon(QIcon("download (2).jpeg"))
         self.username=username
         self.toolButton.clicked.connect(self.gotomap)
-        self.partner_Edit.textChanged.connect(self.textchanged)
-        self.finish_Button_3.clicked.connect(self.finish1)
         
-    def textchanged(self,text):
-        #print(text)
-        flag,t=Manage(self.username).search(text)
-        #print(Manage(self.username).search(text))
-        if int(flag)==1:
-            self.partner_Edit.setText(t)
+        self.finish_Button_3.clicked.connect(self.finish1)
     def gotomap(self):
         Maap()
         
     def finish1(self):
-    
+        
+        
         Task(self.username,self.partner_Edit.text(),self.comboBox_2.currentIndex()+1,self.start_Time_Edit.text(),self.endTimeE_dit.text(),self.comboBox.currentText(),self.partner_Edit_2.text(),self.partner_Edit_4.text(),self.partner_Edit_3.text())
         
         #l1=QListWidgetItem(self.partner_Edit.text(),self.partner_Edit3.text())
@@ -515,6 +518,35 @@ class Ui_Form(QMainWindow,QListWidget):
 
 
 
+class hall_of_fame(QMainWindow):
+    def __init__(self,username):
+        super(hall_of_fame,self).__init__()
+        loadUi("Hall_of_fame.ui",self)
+        self.username=username
+        user_list=Hall_of_Fame.fame()
+
+        #print(user_list)
+        users=[]
+        self.x=len(user_list)
+        for user in range(self.x):
+            users.append(user_list[user]["username"]+" "+str(user_list[user]["score"]))
+
+        model=QStandardItemModel(len(users),1)
+        model.setHorizontalHeaderLabels(['Top 10'])
+
+        for row,company in enumerate(users):
+            item=QStandardItem(company)
+            model.setItem(row,0,item)
+        filterr=QSortFilterProxyModel()
+        filterr.setSourceModel(model)
+       # self.table.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.table.setModel(filterr)
+        self.back.clicked.connect(self.gotoback)
+
+    def gotoback(self):
+        widget.addWidget(mainWindowTask(self.username))
+        widget.setCurrentIndex(widget.currentIndex()+1)
 
 
 
@@ -556,12 +588,11 @@ class edit_profile(QMainWindow):
         loadUi("Edit_Profile2.ui",self)
         self.username=username
         p_list=user.find("username",self.username)
-        print(p_list)
         self.f_n.setText(p_list[0]["first_name"])
         self.last_name_Edit.setText(p_list[0]["last_name"])
         self.email_Edit.setText(p_list[0]["email"])
         self.phone_Edit.setText(p_list[0]["phone"])
-        #self.rank_Edit.setText(p_list[0]["level"])
+        self.rank_Edit.setText(p_list[0]["level"])
         
         
         self.done_bt.clicked.connect(self.home1)
@@ -569,10 +600,6 @@ class edit_profile(QMainWindow):
     
     
     def home1(self):
-        user.modify(self.username, "first_name", self.f_n.text())
-        user.modify(self.username, "last_name", self.last_name_Edit.text())
-        user.modify(self.username, "email", self.email_Edit.text())
-        user.modify(self.username, "phone", self.phone_Edit.text())
         widget.addWidget(mainWindowTask(self.username))
         widget.setCurrentIndex(widget.currentIndex()+1)
     
@@ -609,10 +636,10 @@ class search(QMainWindow):
         super(search,self).__init__()
         loadUi("Search.ui",self)
         pixmap=QPixmap("images.png")
-        pixmap_1=QPixmap("Obj/ico/microphone.png")
+        pixmap_1=QPixmap("microphone.png")
         self.label.setPixmap(pixmap)
         #self.Micro_Button.setSize(100,100)
-        self.Micro_Button.setIcon(QIcon("Obj/ico/microphone.png"))
+        self.Micro_Button.setIcon(QIcon("microphone.png"))
         self.username=username
         ###model =         #add the search list
        # mainLayout=form
@@ -641,18 +668,14 @@ class search(QMainWindow):
         self.table.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.setModel(filter_proxy_model)
-        self.search_Button.clicked.connect(self.gotoback)
         self.table.doubleClicked.connect(self.gotoshow)
         #form.addWidget(table)
         self.Micro_Button.clicked.connect(self.gotovoice)
         
-    def gotoback(self):
-        widget.addWidget(mainWindowTask(self.username))
-        widget.setCurrentIndex(widget.currentIndex()+1)
-        
     def gotovoice(self):
-       
+        #print("voice")
         r = sr.Recognizer()
+        #while 1:
         with sr.Microphone() as source:
             print("Speak Anything :")
             self.label_2.setText("Speak Anything :")
@@ -678,9 +701,9 @@ class show_spacific_task(QMainWindow):
         self.username=username
         self.name=name
         i=int(name[8:10])
-        print(i)
+        #print(i)
         task_list=Task.show_task_details(i)
-        print(task_list)
+        #print(task_list)
         #task_list=Manage(self.username).show_tasks()
         self.Task_browser.append(task_list["task"])
         self.description_browser.append(task_list["description"])
@@ -718,7 +741,7 @@ class show_task(QMainWindow):
     def __init__(self,username,name):
         super(show_task,self).__init__()
         loadUi("Show_Task_final.ui",self)
-        self.toolButton.setIcon(QIcon("Obj/ico/user_Ico.jpeg"))
+        self.toolButton.setIcon(QIcon("download (2).jpeg"))
         self.username=username
         
         self.name=name
@@ -750,7 +773,7 @@ class show_task(QMainWindow):
     def gotodel(self):
         i=int(self.name[4:6])-1
         #print(i)
-        task_list=Manage(self.username).show_ongoing_tasks()
+        task_list=Manage(self.username).show_tasks()
         Task.remove_task(task_list[i]["id"])
         widget.addWidget(mainWindowTask(self.username))
         widget.setCurrentIndex(widget.currentIndex()+1)
@@ -770,7 +793,7 @@ class Edit(QMainWindow):
         self.name=name
         pixmap=QPixmap("135638555_108817857718563_7138284607891211623_n.jpg")
         self.labelmg.setPixmap(pixmap)
-        self.toolButton.setIcon(QIcon("Obj/ico/user_Ico.jpeg"))
+        self.toolButton.setIcon(QIcon("download (2).jpeg"))
         task_list=Manage(self.username).show_ongoing_tasks()
         #print(name)
         #i=int(name[4])-1
@@ -816,7 +839,7 @@ class edit(QMainWindow):
         self.username=username
         pixmap=QPixmap("135638555_108817857718563_7138284607891211623_n.jpg")
         self.labelmg.setPixmap(pixmap)
-        self.toolButton.setIcon(QIcon("Obj/ico/user_Ico.jpeg"))
+        self.toolButton.setIcon(QIcon("download (2).jpeg"))
         task_list=Task.show_task_details(name)
         #print(name)
         #i=int(name[4])-1
