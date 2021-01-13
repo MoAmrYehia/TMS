@@ -32,7 +32,7 @@ ADD ME
 ## 
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/MoAmrYehia/Software_League_app/main/DBMS ER diagram (UML notation).png">
+    <img src="https://raw.githubusercontent.com/MoAmrYehia/Software_League_app/main/DBMS ER diagram (UML notation).png" width="400" height="400">
 </p>
 
 ## Current Contributors
