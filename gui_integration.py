@@ -9,7 +9,7 @@ This is a temporary script file.
 
 
 #from tinydb import TinyDB
-
+from data_rw import *
 import sys
 import io
 #import gmaps
@@ -46,7 +46,7 @@ class login(QMainWindow):
         super(login, self).__init__()
         loadUi("mainwindow.ui",self)
         self.loginbutton.clicked.connect(self.loginfunc)
-        pixmap=QPixmap("TMS_Logo.png")
+        pixmap=QPixmap("Obj/ico/TMS_Logo.png")
         self.label.setPixmap(pixmap)
         self.label.resize(pixmap.width(),pixmap.height())
         #self.setLayout(QImage("download.jpeg"))
@@ -238,8 +238,8 @@ class mainWindowTask(QMainWindow):
     def __init__(self,username):
         super(mainWindowTask, self).__init__()
         loadUi("mainwindow_task.ui",self)
-        self.Add2.setIcon(QIcon("images (1).jpeg"))
-        self.search.setIcon(QIcon("images.png"))
+        self.Add2.setIcon(QIcon("Obj/ico/images_1.jpeg"))
+        self.search.setIcon(QIcon("Ojb/ico/images.png"))
         self.notification.clear()
         self.comboBox.clear()
         self.notification.addItem(QIcon("appointment-reminders.png")," ")
@@ -487,7 +487,7 @@ class Ui_Form(QMainWindow,QListWidget):
     def __init__(self,username):
         super(Ui_Form, self).__init__()
         loadUi("Add_Task_final.ui",self)
-        pixmap=QPixmap("task-clipboard-editor-checklist-complete-worksheet-project-notebook-presentation-.jpg")
+        pixmap=QPixmap("Obj/ico/task_clip.jpg")
         
         self.labelmg.setPixmap(pixmap)
         
@@ -611,10 +611,10 @@ class search(QMainWindow):
         super(search,self).__init__()
         loadUi("Search.ui",self)
         pixmap=QPixmap("images.png")
-        pixmap_1=QPixmap("microphone.png")
+        pixmap_1=QPixmap("Obj/ico/microphone.png")
         self.label.setPixmap(pixmap)
         #self.Micro_Button.setSize(100,100)
-        self.Micro_Button.setIcon(QIcon("microphone.png"))
+        self.Micro_Button.setIcon(QIcon("Obj/ico/microphone.png"))
         self.username=username
         ###model =         #add the search list
        # mainLayout=form
