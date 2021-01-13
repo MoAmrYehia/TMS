@@ -239,7 +239,7 @@ class mainWindowTask(QMainWindow):
         super(mainWindowTask, self).__init__()
         loadUi("mainwindow_task.ui",self)
         self.Add2.setIcon(QIcon("Obj/ico/images_1.jpeg"))
-        self.search.setIcon(QIcon("Ojb/ico/images.png"))
+        self.search.setIcon(QIcon("Obj/ico/images.png"))
         self.notification.clear()
         self.comboBox.clear()
         self.notification.addItem(QIcon("Obj/ico/appointment-reminders.png")," ")
