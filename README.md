@@ -25,15 +25,17 @@ Today, Most of the available task monitoring and management systems only offer l
 
 In our project we propose the development of a smart task monitoring application, which provides for the user and the admin an optimized schedule and also takes into account various constraints like appointment times, activity durations, and timing, and also pushes notifications about updates and other important features.
 
-## Installation and Running
-```python
-ADD ME
-```
 ## How we built it
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/MoAmrYehia/Software_League_app/main/DBMS ER diagram (UML notation).png" width="400" height="400">
 </p>
+
+## Installation and Running
+```python
+ADD ME
+```
+
 
 ## Current Contributors
 <a href="https://github.com/MoAmrYehia/Software_League_app/graphs/contributors">
