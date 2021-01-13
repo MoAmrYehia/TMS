@@ -278,11 +278,12 @@ class Manage():
         tasks = Query()
         task = db_tasks.search(
             tasks.task.matches(s_key + '.*', flags=re.IGNORECASE) & (tasks.username == self.username))
-        
+
         if task:
-            return 1, task[0]["task"]
+            text=task[0]["task"]
+            return 1, text
         else:
-            return 0
+            return 0, None
         #print(db_tasks.search(where('task').matches(s_key + '.*') & (tasks.username == self.username)))  # case sensitve
 
 

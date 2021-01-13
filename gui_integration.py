@@ -501,7 +501,7 @@ class Ui_Form(QMainWindow,QListWidget):
         #print(text)
         flag,t=Manage(self.username).search(text)
         #print(Manage(self.username).search(text))
-        if flag==1:
+        if int(flag)==1:
             self.partner_Edit.setText(t)
     def gotomap(self):
         Maap()
