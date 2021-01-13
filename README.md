@@ -29,7 +29,7 @@ In our project we propose the development of a smart task monitoring application
 ```python
 ADD ME
 ```
-## 
+## How we built it
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/MoAmrYehia/Software_League_app/main/DBMS ER diagram (UML notation).png" width="400" height="400">
