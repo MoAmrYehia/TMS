@@ -8,11 +8,9 @@ This is a temporary script file.
 # signals use connect
 
 
-#from tinydb import TinyDB
 from data_rw import *
 import sys
 import io
-#import gmaps
 import googlemaps
 #import gmaps.datasets
 #gmaps.configure(api_key='AIzaSyBv3H5SMUpoLqqFmoeg1tbJS6UBmoEPVbk')
