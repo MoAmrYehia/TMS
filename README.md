@@ -29,6 +29,12 @@ In our project we propose the development of a smart task monitoring application
 ```python
 ADD ME
 ```
+## 
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/MoAmrYehia/Software_League_app/main/DBMS ER diagram (UML notation).png">
+</p>
+
 ## Current Contributors
 <a href="https://github.com/MoAmrYehia/Software_League_app/graphs/contributors">
   <img src="https://contributors-img.web.app/image?repo=MoAmrYehia/Software_League_app" />
