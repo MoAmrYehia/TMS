@@ -29,7 +29,7 @@ In our project we propose the development of a smart task monitoring application
 TMS is desktop application. We used PyQT5 to create an interactive GUI. PyQT5 allowed us to built a full user experience. For the backend we used python to enhance different functionality and manage database. Externally, we used a voice recognition API to enable people to interact with TMS services using voice and text. 
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/MoAmrYehia/Software_League_app/main/DBMS ER diagram (UML notation).png" width="400" height="400">
+    <img src="https://raw.githubusercontent.com/MoAmrYehia/Software_League_app/main/Obj/ico/DBMS ER diagram (UML notation).png" width="400" height="400">
 </p>
 
 ## Installation and Running
