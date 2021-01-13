@@ -195,7 +195,7 @@ class signup(QMainWindow):
     def __init__(self):
         super(signup,self).__init__()
         loadUi("sign_up.ui",self)
-        pixmap=QPixmap("107341878-sign-up-button-click-glyph-icon-silhouette-symbol-new-user-registration-membership-hand-pressing-but.jpg")
+        pixmap=QPixmap("Obj/ico/sign_up.jpg")
         self.label.setPixmap(pixmap)
         #self.label.setSize(100,100)
         #self.label.resize(pixmap.width(),pixmap.height())
