@@ -243,7 +243,7 @@ class mainWindowTask(QMainWindow):
         self.notification.clear()
         self.comboBox.clear()
         self.notification.addItem(QIcon("appointment-reminders.png")," ")
-        self.comboBox.addItem(QIcon("download (1).jpeg")," ")
+        self.comboBox.addItem(QIcon("Obj/ico/user_Ico.jpeg")," ")
         self.comboBox.addItem("profile")
         self.comboBox.addItem("SignOut")
         #self.notification.setStyleSheet("border-image : (file:///home/ehab/Desktop/download.jpeg)") 
@@ -491,7 +491,7 @@ class Ui_Form(QMainWindow,QListWidget):
         
         self.labelmg.setPixmap(pixmap)
         
-        self.toolButton.setIcon(QIcon("download (2).jpeg"))
+        self.toolButton.setIcon(QIcon("Obj/ico/user_Ico.jpeg"))
         self.username=username
         self.toolButton.clicked.connect(self.gotomap)
         self.partner_Edit.textChanged.connect(self.textchanged)
@@ -720,7 +720,7 @@ class show_task(QMainWindow):
     def __init__(self,username,name):
         super(show_task,self).__init__()
         loadUi("Show_Task_final.ui",self)
-        self.toolButton.setIcon(QIcon("download (2).jpeg"))
+        self.toolButton.setIcon(QIcon("Obj/ico/user_Ico.jpeg"))
         self.username=username
         
         self.name=name
@@ -772,7 +772,7 @@ class Edit(QMainWindow):
         self.name=name
         pixmap=QPixmap("135638555_108817857718563_7138284607891211623_n.jpg")
         self.labelmg.setPixmap(pixmap)
-        self.toolButton.setIcon(QIcon("download (2).jpeg"))
+        self.toolButton.setIcon(QIcon("Obj/ico/user_Ico.jpeg"))
         task_list=Manage(self.username).show_ongoing_tasks()
         #print(name)
         #i=int(name[4])-1
@@ -818,7 +818,7 @@ class edit(QMainWindow):
         self.username=username
         pixmap=QPixmap("135638555_108817857718563_7138284607891211623_n.jpg")
         self.labelmg.setPixmap(pixmap)
-        self.toolButton.setIcon(QIcon("download (2).jpeg"))
+        self.toolButton.setIcon(QIcon("Obj/ico/user_Ico.jpeg"))
         task_list=Task.show_task_details(name)
         #print(name)
         #i=int(name[4])-1
