@@ -67,6 +67,8 @@ class user_auth:  # user login authentication
             return "Wrong Reset Code "
 
     def reset_handler(self, password):
+
+       
         new_password = str(password)
         db.update({"password": make_pw_hash(new_password)}, users.username == self.username)
         return True
@@ -81,3 +83,4 @@ print(user_auth("mohamedrazzk",None).reset_handler("pass@word"))
 user_auth("mohamedrazzk","").reset()                             //give function just user name 
 
 """
+

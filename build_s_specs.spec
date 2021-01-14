@@ -2,7 +2,7 @@
 
 block_cipher = None
 a = Analysis(['gui_integration.py'],
-         pathex=['D:\\MY Works\\New folder\\TMS\\TMSC\\'],
+         pathex=['D:\\MY Works\\New folder\\TMS\\TMS\\'],
           binaries=[],
          datas=[
          ("C:\\Users\Moham\\AppData\Local\\Programs\\Python\\Python39\Lib\\site-packages\\branca\\*.json","branca"),

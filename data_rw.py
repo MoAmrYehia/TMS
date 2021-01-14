@@ -150,9 +150,9 @@ class Hall_of_Fame:
             for i in range(len(first_ten)):
                 #return first_ten[i]["username"], first_ten[i]["score"]
                 top_ten.append({"username": first_ten[i]["username"], "score": first_ten[i]["score"]})
-            return 1, top_ten
+            return  top_ten
         else:
-            return 0
+            return []
 
 
 """" Test Unit 
