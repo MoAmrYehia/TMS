@@ -1,3 +1,12 @@
+"""
+Project :SWE-CSE2020
+Created by : Razzk
+C-Date : 12/8/2020 , 12:15am
+Des: this class is main used for mail server to send recovery code to user
+Last-M : Razzk
+M-date 01/10/2021 5:26am
+"""
+
 import smtplib
 def mail_code(mail, code):
     try:
