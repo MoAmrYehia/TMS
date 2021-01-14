@@ -3,6 +3,10 @@
 Created on Sat Dec 12 20:47:41 2020
 
 @author: dinaa
+
+Hall of Fame coordinator : @ahmed Gnina
+Testing Code Review : @ahmed Gnina
+
 """
 from push_notification_sc import push_notification
 import datetime
