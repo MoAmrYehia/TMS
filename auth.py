@@ -1,3 +1,17 @@
+"""
+Project :SWE-CSE2020
+Created by : Razzk
+C-Date : 12/7/2020 , 11:14Pm
+Des: main funcation for user modifing and validation
+Last-M : Razzk
+M-date 9/1/2021 04:25pm
+
+Coordinator : @ahmed Gnina
+Testing & Code Review : @ahmed Gnina
+"""
+
+
+
 from tinydb import TinyDB, Query
 from sechashuli import make_pw_hash, check_pw_hash
 from random import randint
