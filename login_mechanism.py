@@ -1,19 +1,5 @@
-"""
-Project :SWE-CSE2020
-Created by : ehab
-C-Date : 12/12/2020 , 7:15Pm
-Des: main gui for login
-Last-M : ehab
-M-date 12/12/2020 12:00pm
-"""
-
-# signals use connect
-
-
-#from tinydb import TinyDB
 from auth import *
 from PyQt5 import QtWidgets
-#from PyQt5 import QPixmap
 from PyQt5.QtWidgets import QApplication,QMainWindow,QDialog
 import sys
 from PyQt5.uic import loadUi
@@ -158,7 +144,6 @@ class signup(QMainWindow):
         self.email.setPlaceholderText("Email")
         self.username.setPlaceholderText("username")
         self.phone.setPlaceholderText("phone number")
-        #self.role.setPlaceholderText("role")
         self.password.setPlaceholderText("password")
         self.conf.setPlaceholderText("confirm password")
         self.password.setEchoMode(QtWidgets.QLineEdit.Password)
@@ -188,11 +173,6 @@ class signup(QMainWindow):
 app=QApplication(sys.argv)
 widget=QtWidgets.QStackedWidget()
 widget.addWidget(login())
-#widget.setGeometry()
-#widget.setWindowState(WindowMaximized)
-#widget.showFullScreen()
-#widget.setFixedWidth(1024)
-#widget.setFixedHeight(800)
 widget.show()
 app.exec_()
 
