@@ -33,7 +33,7 @@ TMS is desktop application. We used PyQt5 to create an interactive GUI. PyQt5 al
 </p>
 
 ## Installation and Running
->Download the exe file from this [link](http://bit.ly/3iiZOd6) and run the program.
+>Download the exe file from this [link](http://bit.ly/3iiZOd6) and run the program on Windos.
 
 
 ## Current Contributors
