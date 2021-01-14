@@ -37,6 +37,6 @@ TMS is desktop application. We used PyQt5 to create an interactive GUI. PyQt5 al
 
 
 ## Current Contributors
-<a href="https://github.com/MoAmrYehia/Software_League_app/graphs/contributors">
-  <img src="https://contributors-img.web.app/image?repo=MoAmrYehia/Software_League_app" />
+<a href="https://github.com/MoAmrYehia/TMS/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=MoAmrYehia/TMS" />
 </a>
