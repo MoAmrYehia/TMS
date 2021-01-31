@@ -16,7 +16,7 @@
     
 </p>
 
-This is a University project, where students could apply software engineering concepts on a real life project. At the end of this project, my team would be able to submit UML diagrams, system requirements and user interface design.
+This is a University project, where students could apply software engineering concepts on a real-life project. At the end of this project, my team would be able to submit UML diagrams, system requirements and user interface design.
 
 
 
